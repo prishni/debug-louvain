@@ -1,5 +1,4 @@
 def __modularity(commu, status):
-
     layer=status.layer
     node_l=status.node_l
     node_c=status.node_c       
@@ -9,6 +8,10 @@ def __modularity(commu, status):
     edge_c=status.edge_c
     couple=status.couple
     mu = status.mu
+    in_layer_in_comm = status.in_layer_in_comm
+    in_layer_out_comm = status.in_layer_out_comm
+    out_layer_in_comm = status.out_layer_in_comm
+    out_layer_out_comm = status.out_layer_out_comm
 
     f=0    
     intra_inter={}
@@ -154,21 +157,28 @@ def __modularity(commu, status):
             l=list(intra_inter[c])
             #print("l: ",l, " c: ", c)
             l=l[0];
-            d_layer=0.0
-            I_layer=0.0
-            m_layer=0.0
+            d_layer=0.0; d_layer1 = 0.0;
+            I_layer=0.0; I_layer1 = 0.0;
+            m_layer=0.0; m_layer1 = 0.0
             n_layer=0.0
             n_co_com_layer=0.0
-            c_layer=0.0    
-
-            for n in layer[l]:
-                    if n in node_l:
-                        m_layer+=len(node_l[n])
-                    if n in node_c:
-                        c_layer+=len(node_c[n])
+            c_layer=0.0; c_layer1 = 0.0
 
             for n in commu[c]:
-                n_layer+=1
+                d_layer1 += (in_layer_in_comm[n]+in_layer_out_comm[n])
+                I_layer1 += in_layer_in_comm[n]
+
+
+            for n in layer[l]:
+                m_layer1 += (in_layer_in_comm[n]+in_layer_out_comm[n])
+                c_layer1 += (out_layer_in_comm[n] + out_layer_out_comm[n])
+                if n in node_l:
+                    m_layer+=len(node_l[n])
+                if n in node_c:
+                    c_layer+=len(node_c[n])
+
+            for n in commu[c]:
+                #n_layer+=1
                 if n in node_l:
                     d_layer+=len(node_l[n])
 
@@ -178,6 +188,7 @@ def __modularity(commu, status):
                 if n in node_c and len(node_c[n])>0:
                     n_co_com_layer+=1 
 
+            print("I: ",I_layer, I_layer1)
             #---------------------------------------------------------
             #--------no modifications done after this point-----------   
             #---------------------------------------------------------  

@@ -242,7 +242,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     current_graph,part,status = induced_graph_multilayer(partition, current_graph,status)
     status.init(current_graph)
 
-    #print("status.layer: ",status.layer)
+    print("status.layer: ",status.layer)
 
     #sys.exit()
 
