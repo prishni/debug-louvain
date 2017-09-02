@@ -8,6 +8,8 @@ from collections import defaultdict
 
 __PASS_MAX = -1
 __MIN = 0.0000001
+#modctr = 0
+
 
 def is_multi_layer(e1, e2, node_c):
     if e2 in node_c and e1 in node_c[e2]:
@@ -75,7 +77,7 @@ def __one_level(graph, status, status_list, level_count) :
     nb_pass_done = 0
     p_temp = __renumber(status.node2com)
     status_list.append(p_temp)
-    cur_mod = __modularity(_get_commu_dict(status_list[-1]), status)
+    cur_mod = __modularity(_get_commu_dict(status_list[-1]), status, graph)
     status_list.pop()
     new_mod = cur_mod
 
@@ -99,7 +101,7 @@ def __one_level(graph, status, status_list, level_count) :
                 
                 p_temp = __renumber(status.node2com)
                 status_list.append(p_temp)
-                incr = __modularity(_get_commu_dict(status_list[-1]), status) - cur_mod2
+                incr = __modularity(_get_commu_dict(status_list[-1]), status, graph) - cur_mod2
                 status_list.pop()
 
                 if incr > best_increase :
@@ -112,7 +114,7 @@ def __one_level(graph, status, status_list, level_count) :
             
             p_temp = __renumber(status.node2com)
             status_list.append(p_temp)
-            cur_mod2 =  __modularity(_get_commu_dict(status_list[-1]), status)
+            cur_mod2 =  __modularity(_get_commu_dict(status_list[-1]), status, graph)
             status_list.pop()
 
             if best_com != com_node :
@@ -127,7 +129,7 @@ def __one_level(graph, status, status_list, level_count) :
 
         p_temp = __renumber(status.node2com)
         status_list.append(p_temp)
-        new_mod = __modularity(_get_commu_dict(status_list[-1]), status)
+        new_mod = __modularity(_get_commu_dict(status_list[-1]), status, graph)
         status_list.pop()
         if new_mod - cur_mod < __MIN :
             break
@@ -247,12 +249,12 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     status.mu = mu
 
     status.init(current_graph)
-    mod = __modularity(_get_commu_dict(status.node2com), status)
+    mod = __modularity(_get_commu_dict(status.node2com), status, current_graph)
     status_list = list()
     level_count = 0
     
     __one_level(current_graph, status, status_list, level_count)
-    new_mod = __modularity(_get_commu_dict(status.node2com), status)
+    new_mod = __modularity(_get_commu_dict(status.node2com), status, current_graph)
     partition = __renumber(status.node2com)
     status_list.append(partition)
     ##print str(mod)+" "+str(new_mod)+" OUT"
@@ -273,7 +275,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         status_list.append(partition)
         #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
         status.init(current_graph, status_list[-1])
-        new_mod = __modularity(_get_commu_dict(partition), status)
+        new_mod = __modularity(_get_commu_dict(partition), status, current_graph)
         
         #print("partition: ",partition)
         #print("#######################################################")
@@ -303,8 +305,8 @@ import os
 import sys
 
 #Comment following four lines if you want to run for all networks
-str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
-#str2 = "./nets/smallnetwork"
+#str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, commus)
 '''with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:

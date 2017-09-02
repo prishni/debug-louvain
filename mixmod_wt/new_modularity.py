@@ -1,4 +1,9 @@
-def __modularity(commu, status):
+modctr = 0
+
+def __modularity(commu, status,graph):
+    global modctr
+    modctr += 1
+    print("modularity called", modctr, "edgewt: ", [graph[1][nbr].get('weight',1) for nbr in graph[1]])
     layer=status.layer
     node_l=status.node_l
     node_c=status.node_c       
@@ -42,17 +47,20 @@ def __modularity(commu, status):
 
                 for n in layer[l]:
                     if n in node_l:
-                        m_layer+=len(node_l[n])
+                        m_layer += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
+                        #m_layer+=len(node_l[n])
 
                     if n in commu[c]:
                         n_layer+=1
 
                         if n in node_l:
-                            d_layer+=len(node_l[n])
+                            d_layer += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
+                            #d_layer+=len(node_l[n])
 
                             for nei in node_l[n]:
                                 if nei in commu[c]: #if the neighbour belongs to current community
-                                    I_layer+=1
+                                    I_layer += graph[n][nei].get('weight',1)
+                                    #I_layer+=1
                         #----useless code block------
                         if n in node_c:
                             for nei in node_c[n]:
@@ -92,11 +100,13 @@ def __modularity(commu, status):
                     if n in node_c:
                         for nei in node_c[n]:
                             if (n in layer[top[co]] and nei in layer[bot[co]]) or (n in layer[bot[co]] and nei in layer[top[co]]):
-                                m_couple+=1
+                                m_couple += graph[n][nei].get('weight',1)
+                                #m_couple+=1
                 
                     if n in layer[top[co]]: #n belongs to the top layer of coupling
                         if n in node_l:
-                            m_layer_top+=len(node_l[n])
+                            m_layer_top += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
+                            #m_layer_top+=len(node_l[n])
                             
                         if n in commu[c]:    #if the node belongs to current community
                             top_tot+=1
@@ -104,33 +114,39 @@ def __modularity(commu, status):
                                 flagg=0
                                 for nei in node_c[n]:
                                     if nei in layer[bot[co]]:
-                                        d_couple_top+=1
+                                        d_couple_top += graph[n][nei].get('weight',1)
+                                        #d_couple_top += 1
                                         if nei in commu[c]: #if the neighbour belongs to current community
-                                            I_couple+=1
+                                            I_couple += graph[n][nei].get('weight',1)
+                                            #I_couple+=1
                                             flagg=1
                                 if flagg==1: #connected to at least 1 within community node in bottom layer
                                     top_con+=1
                             if n in node_l and n not in node_c:
-                                d_couple_top+=len(node_l[n])
+                                d_couple_top += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
+                                #d_couple_top+=len(node_l[n])
                                     
                                             
                     if n in layer[bot[co]]: #n belongs to the bottom layer of coupling
                         if n in node_l:
-                            m_layer_bot+=len(node_l[n])
+                            m_layer_bot += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
+                            #m_layer_bot+=len(node_l[n])
                         if n in commu[c]:    #if the node belongs to current community
                             bot_tot+=1
                             if n in node_c:
                                 flagg=0
                                 for nei in node_c[n]:
                                     if nei in layer[top[co]]:
-                                        d_couple_bot+=1    
+                                        d_couple_bot += graph[n][nei].get('weight',1)
+                                        #d_couple_bot+=1    
                                         if nei in commu[c]: #if the neighbour belongs to current community
                                             flagg=1                    
                                                 #break
                                 if flagg==1: #connected to at least 1 within community node in bottom layer
                                     bot_con+=1
                             if n in node_l and n not in node_c:
-                                d_couple_bot+=len(node_l[n])        
+                                d_couple_bot += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
+                                #d_couple_bot+=len(node_l[n])        
                                 
                 I_couple=float(I_couple)
                 m_couple=float(m_couple)/2.0
@@ -174,18 +190,22 @@ def __modularity(commu, status):
                 m_layer1 += (in_layer_in_comm[n]+in_layer_out_comm[n])
                 c_layer1 += (out_layer_in_comm[n] + out_layer_out_comm[n])
                 if n in node_l:
-                    m_layer+=len(node_l[n])
+                    m_layer += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
+                    #m_layer+=len(node_l[n])
                 if n in node_c:
-                    c_layer+=len(node_c[n])
+                    c_layer += sum([graph[n][nbr].get('weight',1) for nbr in node_c[n]])
+                    #c_layer+=len(node_c[n])
 
             for n in commu[c]:
                 #n_layer+=1
                 if n in node_l:
-                    d_layer+=len(node_l[n])
+                    d_layer += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
+                    #d_layer+=len(node_l[n])
 
                     for nei in node_l[n]:
                         if nei in commu[c]: #if the neighbour belongs to current community
-                            I_layer+=1
+                            I_layer += graph[n][nei].get('weight',1)
+                            #I_layer+=1
                 if n in node_c and len(node_c[n])>0:
                     n_co_com_layer+=1 
 
