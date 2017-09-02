@@ -1,4 +1,5 @@
 def __modularity(commu, status):
+
     layer=status.layer
     node_l=status.node_l
     node_c=status.node_c       

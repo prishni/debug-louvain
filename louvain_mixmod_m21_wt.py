@@ -90,9 +90,9 @@ def __one_level(graph, status, status_list, level_count) :
             status.node2com[node] = -1
             best_com = com_node
             best_increase = 0
-
             for com in neigh_communities:
-                status.node2com[node] = com                
+                status.node2com[node] = com
+                
                 p_temp = __renumber(status.node2com)
                 status_list.append(p_temp)
                 #incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod
@@ -113,9 +113,8 @@ def __one_level(graph, status, status_list, level_count) :
         p_temp = __renumber(status.node2com)
         status_list.append(p_temp)
         #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
-        #updatestatus
         new_mod = __modularity(_get_commu_dict(status_list[-1]), status)
-
+        
         status_list.pop()
         if new_mod - cur_mod < __MIN :
             break
@@ -218,8 +217,9 @@ def induced_graph_multilayer(partition, graph, status):
 def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) :
     current_graph = graph.copy()
     status = Status()
+    status.init(current_graph)
 
-    status.layer = layer
+    status.layer=layer
     status.node_l=node_l
     status.node_c=node_c
     status.top=top
@@ -228,9 +228,6 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     status.edge_c=edge_c
     status.couple = couple
     status.mu = mu
-
-    status.init(current_graph)
-
 
     mod = __modularity(_get_commu_dict(status.node2com), status)
     status_list = list()
@@ -243,11 +240,9 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     ##print str(mod)+" "+str(new_mod)+" OUT"
     mod = new_mod
     current_graph,part,status = induced_graph_multilayer(partition, current_graph,status)
-    #current_graph = induced_graph(partition, current_graph)
-    #print("status.layer: ",status.layer)
-
     status.init(current_graph)
 
+    print("status.layer: ",status.layer)
 
     #sys.exit()
 
@@ -261,6 +256,9 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
         new_mod = __modularity(_get_commu_dict(partition), status)
         
+        #print("partition: ",partition)
+        #print("#######################################################")
+        ##print 'new_mod2',new_mod
         #print str(mod)+" "+str(new_mod)+" IN"
         if new_mod - mod < __MIN :
             break
@@ -269,7 +267,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         current_graph, part,status = induced_graph_multilayer(partition, current_graph,status)
         #status.init(current_graph)
         status.init(current_graph, part)
-        sys.exit()
+        
         
     return status_list[:-1], mod
 
