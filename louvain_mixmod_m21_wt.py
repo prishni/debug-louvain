@@ -3,7 +3,7 @@ import random
 import pickle
 import math
 from mixmod_wt.Status import Status
-from mixmod_wt.modularity import __modularity
+from mixmod_wt.new_modularity import __modularity
 from collections import defaultdict
 
 __PASS_MAX = -1
@@ -308,8 +308,8 @@ import os
 import sys
 
 #Comment following four lines if you want to run for all networks
-#str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
-str2 = "./nets/smallnetwork"
+str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+#str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, commus)
 '''with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
