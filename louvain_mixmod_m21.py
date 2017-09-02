@@ -262,8 +262,8 @@ import os
 import sys
 
 #Comment following four lines if you want to run for all networks
-#str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
-str2 = "./nets/smallnetwork"
+str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+#str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, commus)
 

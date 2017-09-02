@@ -75,14 +75,8 @@ def __one_level(graph, status, status_list, level_count) :
     nb_pass_done = 0
     p_temp = __renumber(status.node2com)
     status_list.append(p_temp)
-    
-    #status.init(graph, status_list[-1])
-        
-    #cur_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
     cur_mod = __modularity(_get_commu_dict(status_list[-1]), status)
-
     status_list.pop()
-        
     new_mod = cur_mod
 
     #print "# id_node from_com to_com local_mod mod"
@@ -105,12 +99,9 @@ def __one_level(graph, status, status_list, level_count) :
                 
                 p_temp = __renumber(status.node2com)
                 status_list.append(p_temp)
-                #status.init(graph, status_list[-1])
-        
                 incr = __modularity(_get_commu_dict(status_list[-1]), status) - cur_mod2
-                #incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
                 status_list.pop()
-                
+
                 if incr > best_increase :
                     best_increase = incr
                     best_com = com
@@ -121,24 +112,28 @@ def __one_level(graph, status, status_list, level_count) :
             
             p_temp = __renumber(status.node2com)
             status_list.append(p_temp)
-
-            cur_mod2 = __modularity(_get_commu_dict(status_list[-1]), status)
-            #cur_mod2 =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+            cur_mod2 =  __modularity(_get_commu_dict(status_list[-1]), status)
             status_list.pop()
 
             if best_com != com_node :
                 modif = True
+                
+                '''p_temp2 = __renumber(status.node2com)
+                status_list.append(p_temp2)
+                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
+                
+                print node, com_node, best_com, incr, best_increase, __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status), cur_mod2
+                status_list.pop()'''
 
         p_temp = __renumber(status.node2com)
         status_list.append(p_temp)
-        #status.init(graph, status_list[-1])
         new_mod = __modularity(_get_commu_dict(status_list[-1]), status)
-        #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
         status_list.pop()
-        
         if new_mod - cur_mod < __MIN :
             break
 
+
+#__modularity(_get_commu_dict(status_list[-1]), status)
 
 def induced_graph_multilayer(partition, graph, status):
     new_layer =defaultdict(set)
