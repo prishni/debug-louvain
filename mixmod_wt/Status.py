@@ -102,7 +102,7 @@ class Status :
                         self.in_layer_out_comm[node] += edge_weight
                     else:
                         self.out_layer_out_comm[node] += edge_weight
-        print("In layer in comm: ",self.in_layer_in_comm)
+        #print("In layer in comm: ",self.in_layer_in_comm)
 
 
     def init(self, graph, part = None) :

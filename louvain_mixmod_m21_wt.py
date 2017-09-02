@@ -3,7 +3,7 @@ import random
 import pickle
 import math
 from mixmod_wt.Status import Status
-from mixmod_wt.new_modularity import __modularity
+from mixmod_wt.modularity import __modularity
 from collections import defaultdict
 
 __PASS_MAX = -1
@@ -75,8 +75,14 @@ def __one_level(graph, status, status_list, level_count) :
     nb_pass_done = 0
     p_temp = __renumber(status.node2com)
     status_list.append(p_temp)
-    cur_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+    
+    #status.init(graph, status_list[-1])
+        
+    #cur_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+    cur_mod = __modularity(_get_commu_dict(status_list[-1]), status)
+
     status_list.pop()
+        
     new_mod = cur_mod
 
     #print "# id_node from_com to_com local_mod mod"
@@ -99,9 +105,12 @@ def __one_level(graph, status, status_list, level_count) :
                 
                 p_temp = __renumber(status.node2com)
                 status_list.append(p_temp)
-                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
+                #status.init(graph, status_list[-1])
+        
+                incr = __modularity(_get_commu_dict(status_list[-1]), status) - cur_mod2
+                #incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
                 status_list.pop()
-
+                
                 if incr > best_increase :
                     best_increase = incr
                     best_com = com
@@ -112,25 +121,24 @@ def __one_level(graph, status, status_list, level_count) :
             
             p_temp = __renumber(status.node2com)
             status_list.append(p_temp)
-            cur_mod2 =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+
+            cur_mod2 = __modularity(_get_commu_dict(status_list[-1]), status)
+            #cur_mod2 =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
             status_list.pop()
 
             if best_com != com_node :
                 modif = True
-                
-                '''p_temp2 = __renumber(status.node2com)
-                status_list.append(p_temp2)
-                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
-                
-                print node, com_node, best_com, incr, best_increase, __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status), cur_mod2
-                status_list.pop()'''
 
         p_temp = __renumber(status.node2com)
         status_list.append(p_temp)
-        new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+        #status.init(graph, status_list[-1])
+        new_mod = __modularity(_get_commu_dict(status_list[-1]), status)
+        #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
         status_list.pop()
+        
         if new_mod - cur_mod < __MIN :
             break
+
 
 def induced_graph_multilayer(partition, graph, status):
     new_layer =defaultdict(set)
@@ -139,7 +147,8 @@ def induced_graph_multilayer(partition, graph, status):
     new_couple=defaultdict(list)
     layer = status.layer
 
-
+    print("New Couple IN: ",status.couple)
+    print("part IN:", partition)
     ret = nx.Graph()
     #id_extra_com = len(partition) + 1
     id_extra_com = max(partition.values()) + 1
@@ -196,7 +205,7 @@ def induced_graph_multilayer(partition, graph, status):
             part[id_com] = id_com
 
             for id_node in layer_node:
-                part[id_node] = id_com
+                #part[id_node] = id_com
                 list_node_com[id_node] = id_com
 
     for node1, node2, datas in graph.edges_iter(data = True):
@@ -219,7 +228,8 @@ def induced_graph_multilayer(partition, graph, status):
 
     #updating status
     new_couple[1]=set(ret.nodes())
-    #print("New Couple: ",new_couple)
+    print("New Couple out: ",new_couple)
+    print("part out:" ,part)
 
     status.layer = new_layer
     status.couple = new_couple
@@ -230,8 +240,7 @@ def induced_graph_multilayer(partition, graph, status):
 def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) :
     current_graph = graph.copy()
     status = Status()
-    status.init(current_graph)
-
+    
     status.layer=layer
     status.node_l=node_l
     status.node_c=node_c
@@ -242,6 +251,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     status.couple = couple
     status.mu = mu
 
+    status.init(current_graph)
     mod = __modularity(_get_commu_dict(status.node2com), status)
     status_list = list()
     level_count = 0
@@ -267,6 +277,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         partition = __renumber(status.node2com)
         status_list.append(partition)
         #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+        status.init(current_graph, status_list[-1])
         new_mod = __modularity(_get_commu_dict(partition), status)
         
         #print("partition: ",partition)
@@ -274,13 +285,14 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         ##print 'new_mod2',new_mod
         #print str(mod)+" "+str(new_mod)+" IN"
         if new_mod - mod < __MIN :
+            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             break
         mod = new_mod
         #current_graph = induced_graph(partition, current_graph)
         current_graph, part,status = induced_graph_multilayer(partition, current_graph,status)
         #status.init(current_graph)
         status.init(current_graph, part)
-        
+        print("current graph nodes: ",current_graph.nodes())
         
     return status_list[:-1], mod
 
@@ -296,7 +308,8 @@ import os
 import sys
 
 #Comment following four lines if you want to run for all networks
-str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+#str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, commus)
 '''with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:

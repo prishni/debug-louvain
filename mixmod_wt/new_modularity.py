@@ -22,6 +22,7 @@ def __modularity(commu, status):
             for l in layer:
                 if n in layer[l]:
                     intra_inter[c].add(l)
+    
     #-----------------------------------------------------------------------------------    
     modularity=0    
     x1={}
@@ -188,7 +189,7 @@ def __modularity(commu, status):
                 if n in node_c and len(node_c[n])>0:
                     n_co_com_layer+=1 
 
-            print("I: ",I_layer, I_layer1)
+            #print("I: ",I_layer, I_layer1)
             #---------------------------------------------------------
             #--------no modifications done after this point-----------   
             #---------------------------------------------------------  
