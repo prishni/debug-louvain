@@ -69,34 +69,37 @@ def __neighcom(node, graph, status) :
             weights.append(neighborcom)
     return weights
 
+
 def __one_level(graph, status, status_list, level_count) :
     modif = True
     nb_pass_done = 0
     p_temp = __renumber(status.node2com)
     status_list.append(p_temp)
-    #cur_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
-    cur_mod = __modularity(_get_commu_dict(status_list[-1]), status)
+    cur_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
     status_list.pop()
     new_mod = cur_mod
+
+    #print "# id_node from_com to_com local_mod mod"
 
     while modif  and nb_pass_done != __PASS_MAX :
         cur_mod = new_mod
         modif = False
         nb_pass_done += 1
+        cur_mod2 = cur_mod
 
-        for node in graph.nodes() :
+        for node in graph.nodes():
             com_node = status.node2com[node]
             neigh_communities = __neighcom(node, graph, status)
             status.node2com[node] = -1
             best_com = com_node
             best_increase = 0
+
             for com in neigh_communities:
                 status.node2com[node] = com
                 
                 p_temp = __renumber(status.node2com)
                 status_list.append(p_temp)
-                #incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod
-                incr =  __modularity(_get_commu_dict(status_list[-1]), status) - cur_mod
+                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
                 status_list.pop()
 
                 if incr > best_increase :
@@ -107,14 +110,24 @@ def __one_level(graph, status, status_list, level_count) :
 
             status.node2com[node] = best_com
             
+            p_temp = __renumber(status.node2com)
+            status_list.append(p_temp)
+            cur_mod2 =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+            status_list.pop()
+
             if best_com != com_node :
                 modif = True
-        
+                
+                '''p_temp2 = __renumber(status.node2com)
+                status_list.append(p_temp2)
+                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
+                
+                print node, com_node, best_com, incr, best_increase, __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status), cur_mod2
+                status_list.pop()'''
+
         p_temp = __renumber(status.node2com)
         status_list.append(p_temp)
-        #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
-        new_mod = __modularity(_get_commu_dict(status_list[-1]), status)
-        
+        new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
         status_list.pop()
         if new_mod - cur_mod < __MIN :
             break
