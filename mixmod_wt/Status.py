@@ -65,6 +65,11 @@ class Status :
         new_status.edge_c=self.edge_c.copy()
         new_status.couple=self.couple.copy()
         new_status.mu = self.mu
+        new_status.in_layer_in_comm = self.in_layer_in_comm.copy()
+        new_status.in_layer_out_comm = self.in_layer_out_comm.copy()
+        new_status.out_layer_in_comm = self.out_layer_in_comm.copy()
+        new_status.out_layer_out_comm = self.out_layer_out_comm.copy()
+        return new_status
 
     def updatelists(self, graph):
         self.in_layer_in_comm   = dict()
@@ -108,7 +113,8 @@ class Status :
     def init(self, graph, part = None) :
 
         """Initialize the status of a graph with every node in one community"""
-        count = 0
+        count = 1
+        #count = 0
         self.node2com = dict([])
         self.total_weight = 0
         self.degrees = dict([])

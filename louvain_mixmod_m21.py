@@ -225,8 +225,8 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     ##print str(mod)+" "+str(new_mod)+" OUT"
     mod = new_mod
     
-    current_graph = induced_graph(partition, current_graph)
-    #current_graph, part = induced_graph_multilayer(partition, current_graph, layer)
+    #current_graph = induced_graph(partition, current_graph)
+    current_graph, part = induced_graph_multilayer(partition, current_graph, layer)
     
     status.init(current_graph)
 
@@ -262,8 +262,8 @@ import os
 import sys
 
 #Comment following four lines if you want to run for all networks
-str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
-#str2 = "./nets/smallnetwork"
+#str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, commus)
 

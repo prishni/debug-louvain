@@ -641,7 +641,8 @@ import sys
 #     exit()
 
 
-str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+#str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, commus)
 

@@ -1,4 +1,4 @@
-def __modularity(commu, status):
+def __modularity(commu, status, graph):
 
     layer=status.layer
     node_l=status.node_l

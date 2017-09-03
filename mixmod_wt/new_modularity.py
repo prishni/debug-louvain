@@ -1,9 +1,12 @@
 modctr = 0
 
-def __modularity(commu, status,graph):
+def __modularity(commu, status, graph):
     global modctr
     modctr += 1
-    print("modularity called", modctr, "edgewt: ", [graph[1][nbr].get('weight',1) for nbr in graph[1]])
+    #print("modularity called", modctr, "edgewt: ", [graph[1][nbr].get('weight',1) for nbr in graph[1]])
+    #print("From modularity, node_c: ", status.node_c)
+    #print("From modularity, node_l: ", status.node_l)
+
     layer=status.layer
     node_l=status.node_l
     node_c=status.node_c       

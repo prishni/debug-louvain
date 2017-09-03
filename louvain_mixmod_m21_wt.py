@@ -5,6 +5,7 @@ import math
 from mixmod_wt.Status import Status
 from mixmod_wt.new_modularity import __modularity
 from collections import defaultdict
+import matplotlib.pyplot as plt
 
 __PASS_MAX = -1
 __MIN = 0.0000001
@@ -30,7 +31,8 @@ def partition_at_level(dendogram, level) :
     return partition
 
 def __renumber(dictionary) :
-    count = 0
+    count = 1
+    #count = 0
     ret = dictionary.copy()
     new_values = dict([])
 
@@ -72,7 +74,9 @@ def __neighcom(node, graph, status) :
     return weights
 
 
-def __one_level(graph, status, status_list, level_count) :
+#New __one_level function (from Raphael's code)
+def __one_level(graph, status, status_list, level_count, verbose=0) :
+    print("graph edges: ",graph.edges(data = True))
     modif = True
     nb_pass_done = 0
     p_temp = __renumber(status.node2com)
@@ -80,9 +84,7 @@ def __one_level(graph, status, status_list, level_count) :
     cur_mod = __modularity(_get_commu_dict(status_list[-1]), status, graph)
     status_list.pop()
     new_mod = cur_mod
-
     #print "# id_node from_com to_com local_mod mod"
-
     while modif  and nb_pass_done != __PASS_MAX :
         cur_mod = new_mod
         modif = False
@@ -119,7 +121,13 @@ def __one_level(graph, status, status_list, level_count) :
 
             if best_com != com_node :
                 modif = True
-                
+            
+            if(verbose):
+                pass
+                #print("{0} {1} {2}".format(node, com_node, best_com))
+                #nx.draw(graph, with_labels = True)
+                #plt.show()
+
                 '''p_temp2 = __renumber(status.node2com)
                 status_list.append(p_temp2)
                 incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
@@ -130,22 +138,73 @@ def __one_level(graph, status, status_list, level_count) :
         p_temp = __renumber(status.node2com)
         status_list.append(p_temp)
         new_mod = __modularity(_get_commu_dict(status_list[-1]), status, graph)
+        
+        print("In __one_level new_mod: {0} cur_mod: {1}".format(new_mod,cur_mod))
+        if(verbose): print(status_list[-1])
+        
         status_list.pop()
         if new_mod - cur_mod < __MIN :
             break
 
-
 #__modularity(_get_commu_dict(status_list[-1]), status)
+
+'''
+#The previous __one_level function (in Soumajit's mixmod code)
+def __one_level(graph, status, status_list, level_count) :
+    modif = True
+    nb_pass_done = 0
+    p_temp = __renumber(status.node2com)
+    status_list.append(p_temp)
+    cur_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+    status_list.pop()
+    new_mod = cur_mod
+
+    while modif  and nb_pass_done != __PASS_MAX :
+        cur_mod = new_mod
+        modif = False
+        nb_pass_done += 1
+
+        for node in graph.nodes() :
+            com_node = status.node2com[node]
+            neigh_communities = __neighcom(node, graph, status)
+            status.node2com[node] = -1
+            best_com = com_node
+            best_increase = 0
+            for com in neigh_communities:
+                status.node2com[node] = com
+                
+                p_temp = __renumber(status.node2com)
+                status_list.append(p_temp)
+                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod
+                status_list.pop()
+
+                if incr > best_increase :
+                    best_increase = incr
+                    best_com = com
+
+                status.node2com[node] = -1
+
+            status.node2com[node] = best_com
+            
+            if best_com != com_node :
+                modif = True
+        
+        p_temp = __renumber(status.node2com)
+        status_list.append(p_temp)
+        new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+        status_list.pop()
+        if new_mod - cur_mod < __MIN :
+            break
+
+'''
 
 def induced_graph_multilayer(partition, graph, status):
     new_layer =defaultdict(set)
-    new_node_l=defaultdict(list)
-    new_node_c=defaultdict(list)
-    new_couple=defaultdict(list)
+    new_node_l=defaultdict(set)
+    new_node_c=defaultdict(set)
+    new_couple=defaultdict(set)
     layer = status.layer
 
-    print("New Couple IN: ",status.couple)
-    print("part IN:", partition)
     ret = nx.Graph()
     #id_extra_com = len(partition) + 1
     id_extra_com = max(partition.values()) + 1
@@ -216,18 +275,16 @@ def induced_graph_multilayer(partition, graph, status):
     for node1,node2 in ret.edges_iter():
         if((node1 in layer[1] and node2 in layer[1]) or (node1 in layer[2] and node2 in layer[2])):
             #add to node_l
-            new_node_l[node1].append(node2)
-            new_node_l[node2].append(node1)
+            new_node_l[node1].add(node2)
+            new_node_l[node2].add(node1)
         else:
             #add to node_c
-            new_node_c[node1].append(node2)
-            new_node_c[node2].append(node1)
+            new_node_c[node1].add(node2)
+            new_node_c[node2].add(node1)
 
     #updating status
     new_couple[1]=set(ret.nodes())
-    print("New Couple out: ",new_couple)
-    print("part out:" ,part)
-
+        
     status.layer = new_layer
     status.couple = new_couple
     status.node_c = new_node_c
@@ -249,6 +306,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     status.mu = mu
 
     status.init(current_graph)
+
     mod = __modularity(_get_commu_dict(status.node2com), status, current_graph)
     status_list = list()
     level_count = 0
@@ -260,21 +318,23 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     ##print str(mod)+" "+str(new_mod)+" OUT"
     mod = new_mod
     current_graph,part,status = induced_graph_multilayer(partition, current_graph,status)
+    #print("Louvain, partition: ",partition)
     status.init(current_graph)
 
-    print("status.layer: ",status.layer)
+    #print("status.layer: ",status.layer)
 
     #sys.exit()
 
     while True :
         level_count+=1
         #print level_count
-        __one_level(current_graph, status, status_list, level_count)
+        __one_level(current_graph, status, status_list, level_count, 1)
         
         partition = __renumber(status.node2com)
         status_list.append(partition)
-        #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
-        status.init(current_graph, status_list[-1])
+
+        #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)  
+        
         new_mod = __modularity(_get_commu_dict(partition), status, current_graph)
         
         #print("partition: ",partition)
@@ -282,14 +342,13 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         ##print 'new_mod2',new_mod
         #print str(mod)+" "+str(new_mod)+" IN"
         if new_mod - mod < __MIN :
-            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            print("In Louvain new_mod: {0} mod = {1} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".format(new_mod, mod))
             break
         mod = new_mod
         #current_graph = induced_graph(partition, current_graph)
         current_graph, part,status = induced_graph_multilayer(partition, current_graph,status)
         #status.init(current_graph)
         status.init(current_graph, part)
-        print("current graph nodes: ",current_graph.nodes())
         
     return status_list[:-1], mod
 
@@ -305,8 +364,8 @@ import os
 import sys
 
 #Comment following four lines if you want to run for all networks
-#str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
-str2 = "./nets/smallnetwork"
+str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+#str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, commus)
 '''with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:

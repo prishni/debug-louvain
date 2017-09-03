@@ -408,6 +408,15 @@ import sys
 #     print "No"
 #     exit()
 #getSeries(str2)
+
+str2 = "./nets/smallnetwork"
+modu, commus = getSeries(str2)
+print("Modularity: ",modu, commus)
+
+sys.exit()
+
+'''
+
 pathtosave="./resultsDualModLouvain/"
 networklist = os.listdir('/home/user/Downloads/sem2/mtp_prish/Louvain_mixmod/Raphael_27.6.17/synthetics')
 for network in networklist:
@@ -428,3 +437,4 @@ for network in networklist:
     #Write info file for testing
     generateinfofilefortesting(str2,str21,pathtosave)
     comparisionOfModularityValues(network,modu,pathtosave)
+'''
