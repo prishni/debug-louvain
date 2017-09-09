@@ -4,6 +4,8 @@ import pickle
 import math
 from mixmod_wt.Status import Status
 from mixmod_wt.new_modularity import __modularity
+
+#from mixmod_wt.aux import  __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
 from mixmod_wt.aux import _get_com_wise_nodes, printsomeinformation
@@ -353,6 +355,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         __one_level(current_graph, status, status_list, level_count, 1)
         
         partition = __renumber(status.node2com)
+        #partition = status.node2com
         status_list.append(partition)
 
         #new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)  
@@ -377,6 +380,25 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         
     return status_list[:-1], mod
 
+def computegtmod(filename):
+    fnetwork = 0
+    with open(filename+'_ml_network.pickle') as handle:
+        fnetwork = pickle.load(handle)
+    ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
+    
+    status = Status()
+    status.layer=layer
+    status.node_l=node_l
+    status.node_c=node_c
+    status.top=top
+    status.bot=bot
+    status.edge_l=edge_l
+    status.edge_c=edge_c
+    status.couple = couple
+    status.mu = mu
+    mod = __modularity(commu, status, ml_network)
+    return mod
+
 def getSeries(filename):
     fnetwork = 0
     with open(filename+'_ml_network.pickle') as handle:
@@ -389,10 +411,12 @@ import os
 import sys
 
 #Comment following four lines if you want to run for all networks
-#str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
-str2 = "./nets/smallnetwork"
+str2 = "./nets/network_0.5_1.0_0.05_1.0_0.0"
+#str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
-print("Modularity: ", modu, commus)
+#print("Modularity: ", modu, commus)
+print("Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
+print("GT Mod: ",computegtmod(str2))
 '''with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
     pickle.dump(partition_at_level(commus, len(commus)-1), handle)
 '''
