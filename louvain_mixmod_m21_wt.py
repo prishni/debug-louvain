@@ -3,8 +3,8 @@ import random
 import pickle
 import math
 from mixmod_wt.Status import Status
-#from mixmod_wt.new_modularity import __modularity
-from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
+from mixmod_wt.new_modularity import __modularity
+#from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
 
 #from mixmod_wt.aux import  __modularity
 from collections import defaultdict
@@ -405,7 +405,7 @@ def getSeries(filename):
     
 import os
 import sys
-
+'''
 #Comment following four lines if you want to run for all networks
 str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
 #str2 = "./nets/smallnetwork"
@@ -413,17 +413,17 @@ modu, commus = getSeries(str2)
 #print("Modularity: ", modu, commus)
 print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
 print("GT Mod: ",computegtmod(str2))
-'''with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
+with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
     pickle.dump(partition_at_level(commus, len(commus)-1), handle)
-'''
+
 sys.exit()
-
-
 '''
+
+
 #str2 = sys.argv[1]
 pathtosave = './resultsmixmod/'
-modfile = open(pathtosave+"modComparisionMixModLouvain_nomultilayerinstage1",'w')
-modfile.write("network                                   GroundTruth    DetectedOriginalLouvain\n")
+modfile = open(pathtosave+"modComparisionMixModLouvain_wt_aux-new_modularity",'w')
+modfile.write("network                                   GroundTruth    Detected-Louvain\n")
 modfile.close()
 
 
@@ -432,7 +432,10 @@ for network in networklist:
     str2 = "./nets/"+str(network)
     #str21 = '/home/user/Downloads/sem2/mtp_prish/Louvain_mixmod/resultsmixmod/modComparisionMixModLouvain'
     modu, commus = getSeries(str2)
+    gtmod = computegtmod(str2)
+    print("GT Mod: ",gtmod)
     print "FINAL_MODULARITY*** ", modu
+    '''
     gtFile="./Raphael_27.6.17/infos/"+str(network)+".info"
     gtf=open(gtFile)
     gtmod=0
@@ -442,12 +445,12 @@ for network in networklist:
             gtmod = float(line.strip())
             #print("gtmod "+str(gtmod))
             break
-
-    modfile = open(pathtosave+"modComparisionMixModLouvain_nomultilayerinstage1",'a')
+    '''
+    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_aux-new_modularity",'a')
     modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(modu)+"\n")
     modfile.close()
 
-'''
+
 
 
 # i = int(sys.argv[1])

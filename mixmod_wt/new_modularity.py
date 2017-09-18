@@ -185,8 +185,9 @@ def __modularity(commu, status, graph):
             c_layer=0.0; c_layer1 = 0.0
 
             for n in commu[c]:
-                d_layer1 += (in_layer_in_comm[n]+in_layer_out_comm[n])
-                I_layer1 += in_layer_in_comm[n]
+                #d_layer1 += (in_layer_in_comm[n]+in_layer_out_comm[n])
+                #I_layer1 += in_layer_in_comm[n]
+                pass
 
 
             for n in layer[l]:
@@ -211,6 +212,8 @@ def __modularity(commu, status, graph):
                             #I_layer+=1
                 if n in node_c and len(node_c[n])>0:
                     n_co_com_layer+=1 
+                    #d_layer += len(node_c[n])
+                    d_layer += sum([graph[n][nbr].get('weight',1) for nbr in node_c[n]])
 
             #print("I: ",I_layer, I_layer1)
             #---------------------------------------------------------
@@ -219,7 +222,9 @@ def __modularity(commu, status, graph):
             I_layer=float(I_layer)/2.0
             m_layer=float(m_layer)/2.0
             if I_layer>-1 and m_layer>0:
-                mod=((I_layer/(1.0*m_layer))-((float(d_layer)/(1.0*m_layer))*(float(d_layer)/(1.0*m_layer))))   
+                #mod=((I_layer/(1.0*m_layer))-((float(d_layer)/(1.0*m_layer))*(float(d_layer)/(1.0*m_layer))))   
+                mod=((I_layer/(1.0*m_layer+(c_layer/2.0)))-((float(d_layer)/(2.0*m_layer+c_layer))*(float(d_layer)/(2.0*m_layer+c_layer))))
+
             else:
                 mod=0 
             ##print c,l,mod,mu,mu*mod,I_layer,m_layer,c_layer,d_layer, n_co_com_layer, n_layer
