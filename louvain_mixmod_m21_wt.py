@@ -3,7 +3,8 @@ import random
 import pickle
 import math
 from mixmod_wt.Status import Status
-from mixmod_wt.new_modularity import __modularity
+#from mixmod_wt.new_modularity import __modularity
+from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
 
 #from mixmod_wt.aux import  __modularity
 from collections import defaultdict
@@ -363,11 +364,6 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
         #new_mod = __modularity(_get_commu_dict(partition), status, current_graph)
         new_mod = __modularity(_get_com_wise_nodes(partition), status, current_graph)
         
-        #print("partition: ",partition)
-        #print("#######################################################")
-        ##print 'new_mod2',new_mod
-        #print str(mod)+" "+str(new_mod)+" IN"
-        
         if new_mod - mod < __MIN :
             print("In Louvain new_mod: {0:.4f} mod = {1:.4f} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".format(new_mod, mod))
             break
@@ -411,11 +407,11 @@ import os
 import sys
 
 #Comment following four lines if you want to run for all networks
-str2 = "./nets/network_0.5_1.0_0.05_1.0_0.0"
+str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
 #str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 #print("Modularity: ", modu, commus)
-print("Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
+print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
 print("GT Mod: ",computegtmod(str2))
 '''with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
     pickle.dump(partition_at_level(commus, len(commus)-1), handle)
