@@ -191,8 +191,8 @@ def __modularity(commu, status, graph):
 
 
             for n in layer[l]:
-                m_layer1 += (in_layer_in_comm[n]+in_layer_out_comm[n])
-                c_layer1 += (out_layer_in_comm[n] + out_layer_out_comm[n])
+                #m_layer1 += (in_layer_in_comm[n]+in_layer_out_comm[n])
+                #c_layer1 += (out_layer_in_comm[n] + out_layer_out_comm[n])
                 if n in node_l:
                     m_layer += sum([graph[n][nbr].get('weight',1) for nbr in node_l[n]])
                     #m_layer+=len(node_l[n])

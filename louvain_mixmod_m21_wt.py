@@ -5,7 +5,6 @@ import math
 from mixmod_wt.Status import Status
 from mixmod_wt.new_modularity import __modularity
 #from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
-
 #from mixmod_wt.aux import  __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
@@ -171,55 +170,6 @@ def __one_level(graph, status, status_list, level_count, verbose=0) :
 
 #__modularity(_get_commu_dict(status_list[-1]), status)
 
-'''
-#The previous __one_level function (in Soumajit's mixmod code)
-def __one_level(graph, status, status_list, level_count) :
-    modif = True
-    nb_pass_done = 0
-    p_temp = __renumber(status.node2com)
-    status_list.append(p_temp)
-    cur_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
-    status_list.pop()
-    new_mod = cur_mod
-
-    while modif  and nb_pass_done != __PASS_MAX :
-        cur_mod = new_mod
-        modif = False
-        nb_pass_done += 1
-
-        for node in graph.nodes() :
-            com_node = status.node2com[node]
-            neigh_communities = __neighcom(node, graph, status)
-            status.node2com[node] = -1
-            best_com = com_node
-            best_increase = 0
-            for com in neigh_communities:
-                status.node2com[node] = com
-                
-                p_temp = __renumber(status.node2com)
-                status_list.append(p_temp)
-                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod
-                status_list.pop()
-
-                if incr > best_increase :
-                    best_increase = incr
-                    best_com = com
-
-                status.node2com[node] = -1
-
-            status.node2com[node] = best_com
-            
-            if best_com != com_node :
-                modif = True
-        
-        p_temp = __renumber(status.node2com)
-        status_list.append(p_temp)
-        new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
-        status_list.pop()
-        if new_mod - cur_mod < __MIN :
-            break
-
-'''
 
 def induced_graph_multilayer(partition, graph, status):
     new_layer =defaultdict(set)
@@ -393,7 +343,7 @@ def computegtmod(filename):
     status.couple = couple
     status.mu = mu
     mod = __modularity(commu, status, ml_network)
-    return mod
+    return mod,commu
 
 def getSeries(filename):
     fnetwork = 0
@@ -405,26 +355,31 @@ def getSeries(filename):
     
 import os
 import sys
+import pickle
+
+def write_commus_infile(network,detected_commu,gtcom):
+	#writting the detected communities-------------------------------
+    detected_communities_file = open(pathtowritecommu+str(network)+".pickle","w")
+    pickle.dump((gtcom,detected_commu),detected_communities_file,2)
+    detected_communities_file.close()
+    #-----------------------------------------------------------------
+
 '''
 #Comment following four lines if you want to run for all networks
-str2 = "./nets/network_0.9_1.0_0.05_1.0_0.0"
+str2 = "./nets/network_0.2_1.0_0.05_1.0_0.0"
 #str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
-#print("Modularity: ", modu, commus)
 print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
 print("GT Mod: ",computegtmod(str2))
-with open('_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
-    pickle.dump(partition_at_level(commus, len(commus)-1), handle)
 
 sys.exit()
 '''
-
-
-#str2 = sys.argv[1]
-pathtosave = './resultsmixmod/'
-modfile = open(pathtosave+"modComparisionMixModLouvain_wt_aux-new_modularity",'w')
+pathtowritecommu = "./resultsmixmod/detected_communities/"
+pathtosave = './resultsmixmod/modularity_comparisions/'
+modfile = open(pathtosave+"modComparisionMixModLouvain_wt_newmodularity",'w')
 modfile.write("network                                   GroundTruth    Detected-Louvain\n")
 modfile.close()
+
 
 
 networklist = os.listdir('./Raphael_27.6.17/synthetics')
@@ -432,9 +387,11 @@ for network in networklist:
     str2 = "./nets/"+str(network)
     #str21 = '/home/user/Downloads/sem2/mtp_prish/Louvain_mixmod/resultsmixmod/modComparisionMixModLouvain'
     modu, commus = getSeries(str2)
-    gtmod = computegtmod(str2)
+    gtmod,gtcom = computegtmod(str2)
     print("GT Mod: ",gtmod)
-    print "FINAL_MODULARITY*** ", modu
+    print ("FINAL_MODULARITY*** ", modu)
+    #detected_commu = _get_com_wise_nodes(partition_at_level(commus, len(commus)-1))
+    #write_commus_infile(network,detected_commu,gtcom)
     '''
     gtFile="./Raphael_27.6.17/infos/"+str(network)+".info"
     gtf=open(gtFile)
@@ -445,8 +402,8 @@ for network in networklist:
             gtmod = float(line.strip())
             #print("gtmod "+str(gtmod))
             break
-    '''
-    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_aux-new_modularity",'a')
+	'''
+    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_newmodularity",'a')
     modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(modu)+"\n")
     modfile.close()
 
