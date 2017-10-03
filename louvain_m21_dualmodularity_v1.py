@@ -4,8 +4,9 @@ import pickle
 import math
 import json
 from sklearn.metrics import *
-from aux.__modularity import __modularity, __git_modularity
-from aux.modularity21_optimized import __modularityoptimized
+from aux.__modularity import __git_modularity
+from aux.mixmod_wt_correctingImplementation import __modularity
+#from aux.modularity21_optimized import __modularityoptimized
 from aux.Status import Status
 from aux.show_intermediate_steps import *
 from aux.__inducedGraph import __git_induced_graph
@@ -15,6 +16,12 @@ from collections import defaultdict
 __PASS_MAX = -1
 __MIN = 0.0000001
       
+def _get_com_wise_nodes(dictionary):
+    #m = max(dictionary.values())
+    louvain_p = defaultdict(set)
+    for l in dictionary.keys():
+        louvain_p[dictionary[l]].add(l)
+    return louvain_p
 
 def is_multi_layer(e1, e2, node_c):
     if e2 in node_c and e1 in node_c[e2]:
@@ -78,13 +85,13 @@ def __neighcom(node, graph, status) :
 def __one_level(graph, status, status_list, level_count, verbose = 0) :
     modif = True
     nb_pass_done = 0
-    p_temp = __renumber(status.node2com)
+    p_temp = status.node2com
     status_list.append(p_temp)
-    cur_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+    cur_mod = __modularity(_get_com_wise_nodes(partition_at_level(status_list, level_count)), status,graph)
     status_list.pop()
     new_mod = cur_mod
 
-    print "# id_node from_com to_com local_mod mod"
+    #print "# id_node from_com to_com local_mod mod"
 
     while modif  and nb_pass_done != __PASS_MAX :
         cur_mod = new_mod
@@ -101,11 +108,19 @@ def __one_level(graph, status, status_list, level_count, verbose = 0) :
             best_increase = 0
             
             for com in neigh_communities:
+
+                temp_dict = {com:_get_com_wise_nodes(status.node2com)[com]}
+                base_mod_of_community = __modularity(temp_dict, status, graph)
+
                 status.node2com[node] = com
                 
-                p_temp = __renumber(status.node2com)
+                #p_temp = __renumber(status.node2com)
                 status_list.append(p_temp)
-                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
+
+                temp_dict = {com:_get_com_wise_nodes(status_list[-1])[com]}
+                incr = __modularity(temp_dict, status, graph) - base_mod_of_community
+                
+                #incr =  __modularity(_get_com_wise_nodes(partition_at_level(status_list, level_count)), status,graph) - cur_mod2
                 status_list.pop()
 
                 if incr > best_increase :
@@ -118,26 +133,26 @@ def __one_level(graph, status, status_list, level_count, verbose = 0) :
             if(verbose):
                 pass #print("Node ", node, " moved from ", com_node, " to ", best_com, " increase: ", best_increase)
             
-            p_temp = __renumber(status.node2com)
+            #p_temp = __renumber(status.node2com)
             status_list.append(p_temp)
-            cur_mod2 =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status, verbose)
+            cur_mod2 =  __modularity(_get_com_wise_nodes(partition_at_level(status_list, level_count)), status, graph)
             status_list.pop()
             
             if best_com != com_node :
                 modif = True
             
-                p_temp2 = __renumber(status.node2com)
+                '''p_temp2 = __renumber(status.node2com)
                 status_list.append(p_temp2)
-                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
+                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status,graph) - cur_mod2
                 #print "m here"
                 #print node, com_node, best_com, incr, best_increase, __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status), cur_mod2
-                status_list.pop()
+                status_list.pop()'''
 
-        p_temp = __renumber(status.node2com)
+        p_temp = status.node2com
         status_list.append(p_temp)
         
         #Changing mod to optimized modularity definition here
-        new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status)
+        new_mod = __modularity(_get_com_wise_nodes(partition_at_level(status_list, level_count)), status,graph)
         status_list.pop()
 
         if new_mod - cur_mod < __MIN :
@@ -241,19 +256,19 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     status.couple = couple
     status.mu = mu
 
-    mod = __modularity(_get_commu_dict(status.node2com), status)
+    mod = __modularity(_get_com_wise_nodes(status.node2com), status,current_graph)
     status_list = list()
     level_count = 0
     __one_level(current_graph, status, status_list, level_count)
-    new_mod = __modularity(_get_commu_dict(status.node2com), status)
+    new_mod = __modularity(_get_com_wise_nodes(status.node2com), status,current_graph)
     partition = __renumber(status.node2com)
     status_list.append(partition)
     print str(mod)+" "+str(new_mod)+" OUT"
 
     mod = new_mod
-    with open(str2+'_commu_benching_all_march21_louvain_step1.pickle', 'wb') as handle:
-        pickle.dump(partition_at_level(status_list, 0), handle)
-
+    '''with open(str2+'_commu_benching_all_march21_louvain_step1.pickle', 'wb') as handle:
+                    pickle.dump(partition_at_level(status_list, 0), handle)'''
+    prev_graph = current_graph
     current_graph = induced_graph(partition, current_graph)
     status.init(current_graph)    
     printgraph(current_graph)
@@ -271,7 +286,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     communities = []
     communities.append(communities_itr1)
     communities.extend(dendo)
-    finalmodularity = __modularity(_get_commu_dict(partition_at_level(communities, len(communities)-1)), status)
+    finalmodularity = __modularity(_get_com_wise_nodes(partition_at_level(communities, len(communities)-1)), status,prev_graph)
     return communities, finalmodularity
     #communities = last_partition(dendo,communities_itr1,len(dendo) - 1)
     #print(set(communities.values()))
@@ -329,6 +344,24 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     detectedcomms(status_list)
     return status_list[:-1], mod
     #   '''
+def computegtmod(filename):
+    fnetwork = 0
+    with open(filename+'_ml_network.pickle') as handle:
+        fnetwork = pickle.load(handle)
+    ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
+    
+    status = Status()
+    status.layer=layer
+    status.node_l=node_l
+    status.node_c=node_c
+    status.top=top
+    status.bot=bot
+    status.edge_l=edge_l
+    status.edge_c=edge_c
+    status.couple = couple
+    status.mu = mu
+    mod = __modularity(commu, status, ml_network)
+    return mod
 
 def getSeries(filename):
     fnetwork = 0
@@ -337,6 +370,7 @@ def getSeries(filename):
     ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
     #fc = louvain(ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu)
     dendogram, mod = louvain(ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu)
+
     return mod, dendogram
     #print(fc)
 
@@ -409,6 +443,7 @@ import sys
 #     exit()
 #getSeries(str2)
 
+'''
 str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ",modu, commus)
@@ -418,23 +453,33 @@ sys.exit()
 '''
 
 pathtosave="./resultsDualModLouvain/"
-networklist = os.listdir('/home/user/Downloads/sem2/mtp_prish/Louvain_mixmod/Raphael_27.6.17/synthetics')
+modfile = open(pathtosave+"modComparisionDualModLouvain_correctmodimplementation",'w')
+modfile.write("network                                   GroundTruth    Detected-Louvain\n")
+modfile.close()
+
+networklist = os.listdir('/home/user2/Downloads/sem2/mtp_prish/Louvain_mixmod/Raphael_27.6.17/synthetics')
 for network in networklist:
-    str21 = "./nets/infos/"+str(network)
+    #str21 = "./nets/infos/"+str(network)
     str2 = "./nets/"+str(network)
 
     modu, commus = getSeries(str2)
 
-    print "FINAL_MODULARITY*** ", modu
+    
 
+    '''
     with open(str2+'_commu_benching_all_march21_louvain.pickle', 'wb') as handle:
-        pickle.dump(partition_at_level(commus, len(commus)-1), handle)
-    with open(str2+'_modu_benching_all_march21_louvain.pickle', 'wb') as handle:
-        pickle.dump(modu, handle)
-    with open(str2+'_commu_benching_frac_march21_louvain.pickle', 'wb') as handle:
-        pickle.dump(commus, handle)
-
+                    pickle.dump(partition_at_level(commus, len(commus)-1), handle)
+                with open(str2+'_modu_benching_all_march21_louvain.pickle', 'wb') as handle:
+                    pickle.dump(modu, handle)
+                with open(str2+'_commu_benching_frac_march21_louvain.pickle', 'wb') as handle:
+                    pickle.dump(commus, handle)
+    '''
+    gtmod = computegtmod(str2)
+    print "FINAL_MODULARITY*** ", modu , "gtmod ", gtmod
+    modfile = open(pathtosave+"modComparisionDualModLouvain_correctmodimplementation",'a')
+    modfile.write(network+ ":    "+ str(gtmod)+"  "+str(modu)+"\n")
+    modfile.close()
+    
     #Write info file for testing
-    generateinfofilefortesting(str2,str21,pathtosave)
-    comparisionOfModularityValues(network,modu,pathtosave)
-'''
+    #generateinfofilefortesting(str2,str21,pathtosave)
+    #comparisionOfModularityValues(network,modu,pathtosave)
