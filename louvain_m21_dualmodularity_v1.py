@@ -457,7 +457,7 @@ modfile = open(pathtosave+"modComparisionDualModLouvain_correctmodimplementation
 modfile.write("network                                   GroundTruth    Detected-Louvain\n")
 modfile.close()
 
-networklist = os.listdir('/home/user2/Downloads/sem2/mtp_prish/Louvain_mixmod/Raphael_27.6.17/synthetics')
+networklist = os.listdir('./Raphael_27.6.17/synthetics')
 for network in networklist:
     #str21 = "./nets/infos/"+str(network)
     str2 = "./nets/"+str(network)
