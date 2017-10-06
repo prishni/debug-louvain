@@ -45,11 +45,12 @@ def __modularity(commu, status, graph):
         Eloop[l]=0
         for n in layer[l]:
             for nei in node_l.get(n,set()):
-                E[l]+= graph[n][nei].get('weight',1)
 
+                E[l]+= graph[n][nei].get('weight',1)
+                '''
                 if (n==nei): #for loops add weight twice
                     E[l]+= graph[n][nei].get('weight',1)
-
+                '''
         E[l] = E[l]/2
 
     for n in node_c:
@@ -78,10 +79,10 @@ def __modularity(commu, status, graph):
                         for nei in node_l.get(n,set()):
                             if nei in commu[c]:
                                 Aij+=graph[n][nei].get('weight',1)
-
+                                '''
                                 if (nei==n):  #for loops add weight twice
                                     Aij+=graph[n][nei].get('weight',1)
-                                
+                                '''
                 Aij = Aij/2
 
                 #compute summation hihj--------------------------
@@ -92,12 +93,16 @@ def __modularity(commu, status, graph):
                                 if(n1==n2):
                                     if(n1 not in node_l[n1]): 
                                         continue
+                                '''
                                     else:
                                         hi = 2*sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                                         hj = 2* sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
                                 else:
                                     hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                                     hj =sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
+                                '''
+                                hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
+                                hj =sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
                                 hihj+= (hi*hj)
                 hihj = hihj/2
                 #-------------------------------------------------
@@ -121,10 +126,13 @@ def __modularity(commu, status, graph):
                 if n in node_c:
                     for nei in node_c[n]:
                         if nei in commu[c]:
+                            '''
                             if (n==nei):
                                 Aij+= 2*graph[n][nei].get('weight',1)
                             else:
                                 Aij+= graph[n][nei].get('weight',1)
+                            '''
+                            Aij+= graph[n][nei].get('weight',1)
             Aij = Aij/2
 
             #compute cicj-----------------------------
@@ -138,7 +146,7 @@ def __modularity(commu, status, graph):
                     else:
                         ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                     '''
-                    if n1 in node_l:
+                    if n1 in node_l: exp1
                         hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                         if n1 not in node_c:
                             ci=hi
@@ -147,14 +155,15 @@ def __modularity(commu, status, graph):
                         cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_c[n2]])
                     else:
                         cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
+                        
                     '''
-                    if n2 in node_l:
+                    if n2 in node_l: exp1
                         hj = sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
                         if n2 not in node_c:
                             cj=hj
                     '''
-                cicj += (ci*cj)
-                #cicj += ((ci+hi)*(cj+hj))
+                    cicj +=  (ci*cj)
+                #cicj += ((ci+hi)*(cj+hj)) exp1
             cicj = cicj/2
 
             try:
@@ -183,10 +192,14 @@ def __modularity(commu, status, graph):
             for n in commu[c]:
                 for nei in node_l.get(n,set()):
                     if nei in commu[c]:
+                        '''
                         if(nei==n):
                             Aij+= 2*graph[n][nei].get('weight',1)
                         else:
                             Aij+=graph[n][nei].get('weight',1)
+                        '''
+                        Aij+=graph[n][nei].get('weight',1)
+
             Aij = Aij/2
 
             #compute summation hihj--------------------------
@@ -199,11 +212,14 @@ def __modularity(commu, status, graph):
                     ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_c.get(n1,set())])
                     hj =sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
                     cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_c.get(n2,set())])
+                    '''
                     if(n1==n2):
-                        hihj+= (2*(hi+ci)* 2*(hj+cj))
+                        hihj+= 2*(hi*hj)
                     else:
-                        hihj+= ((hi+ci)*(hj+cj))
-                    #hihj+= (hi*hj)
+                        hihj+= (hi*hj)
+                    '''
+                    hihj+= (hi*hj)
+                    #hihj+= ((hi+ci)*(hj+cj))
 
             hihj = hihj/2
             #-------------------------------------------------

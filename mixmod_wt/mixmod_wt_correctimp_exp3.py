@@ -16,7 +16,7 @@ def __modularity(commu, status, graph):
     edge_c=status.edge_c
     couple=status.couple
     mu = status.mu
-    
+
     #Construct a dict = {node1: layer, node2: layer......}
     nodelayer = {}
     for l in layer:
@@ -38,12 +38,19 @@ def __modularity(commu, status, graph):
 
     #calculate |E1| , |E2| , |E12|---------------------------------------------------
     E={}
+    Eloop={}
     E12=0
     for l in layer:
         E[l]=0
+        Eloop[l]=0
         for n in layer[l]:
             for nei in node_l.get(n,set()):
                 E[l]+= graph[n][nei].get('weight',1)
+                '''
+                if (n==nei): #for loops add weight twice
+                    E[l]+= graph[n][nei].get('weight',1)
+                '''
+
         E[l] = E[l]/2
 
     for n in node_c:
@@ -72,6 +79,11 @@ def __modularity(commu, status, graph):
                         for nei in node_l.get(n,set()):
                             if nei in commu[c]:
                                 Aij+=graph[n][nei].get('weight',1)
+                                '''
+                                if (nei==n):  #for loops add weight twice
+                                    Aij+=graph[n][nei].get('weight',1)
+                                '''
+                                
                 Aij = Aij/2
 
                 #compute summation hihj--------------------------
@@ -82,6 +94,14 @@ def __modularity(commu, status, graph):
                                 if(n1==n2):
                                     if(n1 not in node_l[n1]): 
                                         continue
+                                '''
+                                    else:
+                                        hi = 2*sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
+                                        hj = 2* sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
+                                else:
+                                    hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
+                                    hj =sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
+                                '''
                                 hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                                 hj =sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
                                 hihj+= (hi*hj)
@@ -107,6 +127,12 @@ def __modularity(commu, status, graph):
                 if n in node_c:
                     for nei in node_c[n]:
                         if nei in commu[c]:
+                            '''
+                            if (n==nei):
+                                Aij+= 2*graph[n][nei].get('weight',1)
+                            else:
+                                Aij+= graph[n][nei].get('weight',1)
+                            '''
                             Aij+= graph[n][nei].get('weight',1)
             Aij = Aij/2
 
@@ -116,33 +142,37 @@ def __modularity(commu, status, graph):
                     if(n1==n2 or nodelayer[n1]==nodelayer[n2] ) :
                         #If nodes in same layer, continue
                         continue
+                    norm = 0;
+                    note =0;
                     if n1 in node_c:
                         ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_c[n1]])
+                        norm+=2*E12
+                        note=1
                     else:
                         ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
-                    '''
-                    if n1 in node_l:
-                        hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
-                        if n1 not in node_c:
-                            ci=hi
-                    '''
+                        lay = nodelayer[n1]
+                        norm+=2*E[lay]
+                
                     if n2 in node_c:
                         cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_c[n2]])
+                        if note==0:
+                            norm+=2*E12
                     else:
                         cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
-                    '''
-                    if n2 in node_l:
-                        hj = sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
-                        if n2 not in node_c:
-                            cj=hj
-                    '''
-                    cicj += (ci*cj)
-                #cicj += ((ci+hi)*(cj+hj))
+                        lay = nodelayer[n2]
+                        norm+= 2*E[lay]
+                    
+                    try:
+                        cicj += (ci*cj)/(norm*norm)
+                    except:
+                        cicj +=0
+
             cicj = cicj/2
 
             try:
-                norm = 1.0/(2*sum([E[l] for l in layer]) + 2*E12) #norm = 1/(2*|E1| + 2*|E2| + 2*|E12|)
-                mod = norm*(Aij - (norm*cicj))
+                #norm = 1.0/(2*sum([E[l] for l in layer]) + 2*E12) #norm = 1/(2*|E1| + 2*|E2| + 2*|E12|)
+                #mod = norm*(Aij - (norm*cicj))
+                mod = (Aij/E12 - (cicj))
             except:
                 mod=0
             
@@ -166,6 +196,12 @@ def __modularity(commu, status, graph):
             for n in commu[c]:
                 for nei in node_l.get(n,set()):
                     if nei in commu[c]:
+                        '''
+                        if(nei==n):
+                            Aij+= 2*graph[n][nei].get('weight',1)
+                        else:
+                            Aij+=graph[n][nei].get('weight',1)
+                        '''
                         Aij+=graph[n][nei].get('weight',1)
             Aij = Aij/2
 
@@ -174,11 +210,17 @@ def __modularity(commu, status, graph):
                 for n2 in commu[c]:
                     if(n1==n2):
                         if(n1 not in node_l[n1]):
-                            continue
+                            continue                            
                     hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                     ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_c.get(n1,set())])
                     hj =sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
                     cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_c.get(n2,set())])
+                    '''
+                    if(n1==n2):
+                        hihj+= 2*((hi+ci)*(hj+cj))
+                    else:
+                        hihj+= ((hi+ci)*(hj+cj))
+                    '''
                     hihj+= ((hi+ci)*(hj+cj))
 
             hihj = hihj/2

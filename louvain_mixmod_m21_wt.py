@@ -362,10 +362,10 @@ def write_commus_infile(network,detected_commu,gtcom):
     detected_communities_file.close()
     #-----------------------------------------------------------------
 
-
+'''
 #Comment following four lines if you want to run for all networks
-#str2 = "./nets/network_0.2_1.0_0.05_1.0_0.0"
-str2 = "./nets/smallnetwork"
+str2 = "./nets/network_0.2_1.0_0.05_1.0_0.0"
+#str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
 print("GT Mod: ",computegtmod(str2))
@@ -374,7 +374,7 @@ sys.exit()
 '''
 pathtowritecommu = "./resultsmixmod/detected_communities/"
 pathtosave = './resultsmixmod/modularity_comparisions/'
-modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_exp1",'w')
+modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation",'w')
 modfile.write("network                                   GroundTruth    Detected-Louvain\n")
 modfile.close()
 
@@ -391,7 +391,7 @@ for network in networklist:
     #detected_commu = _get_com_wise_nodes(partition_at_level(commus, len(commus)-1))
     #write_commus_infile(network,detected_commu,gtcom)
     
-    
+    '''
     gtFile="./Raphael_27.6.17/infos/"+str(network)+".info"
     gtf=open(gtFile)
     gtmod=0
@@ -401,11 +401,11 @@ for network in networklist:
             gtmod = float(line.strip())
             #print("gtmod "+str(gtmod))
             break
-	
-    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_exp1",'a')
+	'''
+    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation",'a')
     modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(modu)+"\n")
     modfile.close()
-'''
+
 
 
 
