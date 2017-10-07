@@ -4,7 +4,7 @@ import pickle
 import math
 from mixmod_wt.Status import Status
 #from mixmod_wt.new_modularity import __modularity
-from mixmod_wt.mixmod_wt_correctimp_exp2 import __modularity
+from mixmod_wt.mixmod_wt_correctimp_aijfxd import __modularity
 #from mixmod_wt.aux import  __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
@@ -375,7 +375,7 @@ sys.exit()
 '''
 pathtowritecommu = "./resultsmixmod/detected_communities/"
 pathtosave = './resultsmixmod/modularity_comparisions/'
-modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_exp2_noaiaj",'w')
+modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_aijfxd",'w')
 modfile.write("network                                   GroundTruth    Detected-Louvain\n")
 modfile.close()
 
@@ -392,7 +392,7 @@ for network in networklist:
     #detected_commu = _get_com_wise_nodes(partition_at_level(commus, len(commus)-1))
     #write_commus_infile(network,detected_commu,gtcom)
     
-    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_exp2_noaiaj",'a')
+    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_aijfxd",'a')
     modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(modu)+"\n")
     modfile.close()
 

@@ -167,7 +167,7 @@ def __modularity(commu, status, graph):
             cicj = cicj/2
 
             try:
-                norm = 1.0/(2*sum([E[l] for l in layer]) + 2*E12) #norm = 1/(2*|E1| + 2*|E2| + 2*|E12|)
+                norm = 1.0/(2*sum([E[l] for l in layer]) + E12) #norm = 1/(2*|E1| + 2*|E2| + |E12|)
                 mod = norm*(Aij - (norm*cicj))
             except:
                 mod=0
@@ -224,7 +224,7 @@ def __modularity(commu, status, graph):
             hihj = hihj/2
             #-------------------------------------------------
             try:
-                norm = 1.0/(2*E[l] + 2*E12)
+                norm = 1.0/(2*E[l] + E12)
                 mod = norm*(Aij*1.0 - (norm*hihj))
             except:
                 mod=0

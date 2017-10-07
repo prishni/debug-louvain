@@ -143,11 +143,9 @@ def __modularity(commu, status, graph):
                         #If nodes in same layer, continue
                         continue
                     norm = 0;
-                    note =0;
                     if n1 in node_c:
                         ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_c[n1]])
-                        norm+=2*E12
-                        note=1
+                        norm+=E12
                     else:
                         ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                         lay = nodelayer[n1]
@@ -155,8 +153,7 @@ def __modularity(commu, status, graph):
                 
                     if n2 in node_c:
                         cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_c[n2]])
-                        if note==0:
-                            norm+=2*E12
+                        norm+=E12
                     else:
                         cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
                         lay = nodelayer[n2]
@@ -170,7 +167,7 @@ def __modularity(commu, status, graph):
             cicj = cicj/2
 
             try:
-                #norm = 1.0/(2*sum([E[l] for l in layer]) + 2*E12) #norm = 1/(2*|E1| + 2*|E2| + 2*|E12|)
+                #norm = 1.0/(2*sum([E[l] for l in layer]) + E12) #norm = 1/(2*|E1| + 2*|E2| + |E12|)
                 #mod = norm*(Aij - (norm*cicj))
                 mod = (Aij/E12 - (cicj))
             except:
@@ -226,7 +223,7 @@ def __modularity(commu, status, graph):
             hihj = hihj/2
             #-------------------------------------------------
             try:
-                norm = 1.0/(2*E[l] + 2*E12)
+                norm = 1.0/(2*E[l] + E12)
                 mod = norm*(Aij*1.0 - (norm*hihj))
             except:
                 mod=0
