@@ -9,6 +9,7 @@ from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
 from mixmod_wt.aux import _get_com_wise_nodes, printsomeinformation
+from multiprocessing import Pool
 
 __PASS_MAX = -1
 __MIN = 0.0000001
@@ -239,6 +240,8 @@ def induced_graph_multilayer(partition, graph, status):
         weight = datas.get("weight", 1)
         com1 = list_node_com[node1]
         com2 = list_node_com[node2]
+        if(com1==com2):             # for selfloops add double edge weights
+            weight *= 2
         w_prec = ret.get_edge_data(com1, com2, {"weight":0}).get("weight", 1)
         ret.add_edge(com1, com2, weight = w_prec + weight)
 
@@ -350,17 +353,23 @@ def getSeries(filename):
     ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
     dendogram, mod = louvain(ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu)
     return mod, dendogram
+
+def write_commus_infile(network,detected_commu,gtcom):
+    #writting the detected communities-------------------------------
+    detected_communities_file = open(pathtowritecommu+str(network)+".pickle","w")
+    pickle.dump((gtcom,detected_commu),detected_communities_file,2)
+    detected_communities_file.close()
+    #-----------------------------------------------------------------
+
     
 import os
 import sys
 import pickle
 
-def write_commus_infile(network,detected_commu,gtcom):
-	#writting the detected communities-------------------------------
-    detected_communities_file = open(pathtowritecommu+str(network)+".pickle","w")
-    pickle.dump((gtcom,detected_commu),detected_communities_file,2)
-    detected_communities_file.close()
-    #-----------------------------------------------------------------
+networklist = os.listdir('./Raphael_27.6.17/synthetics')
+pathtowritecommu = "./resultsmixmod/detected_communities/"
+pathtosave = './resultsmixmod/modularity_comparisions/'
+modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation"
 
 '''
 #Comment following four lines if you want to run for all networks
@@ -372,11 +381,49 @@ print("GT Mod: ",computegtmod(str2))
 
 sys.exit()
 '''
-pathtowritecommu = "./resultsmixmod/detected_communities/"
-pathtosave = './resultsmixmod/modularity_comparisions/'
-modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation",'w')
+
+def runformanynetworks(networklist):
+    output = []
+    for network in networklist:
+        str2 = "./nets/"+str(network)
+        dtmod, dtcom = getSeries(str2)
+        gtmod,gtcom = computegtmod(str2)
+        output.append((gtmod, dtmod))
+        modfile = open(modfilename, 'a')
+        modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(dtmod)+"\n")
+        modfile.close()
+    return output
+
+
+def parallelimplementation(networklist):
+    numnetworks = len(networklist)
+
+    cores=4
+    chunksize = numnetworks/cores
+
+    splits = []
+    for i in range(cores):
+        splits.append((i)*chunksize)
+    splits.append(numnetworks)
+
+    args = []
+    for i in range(cores):
+        args.append(networklist[splits[i]:splits[i+1]])
+
+    p = Pool(cores)
+    modularities = p.map(runformanynetworks, args)
+    modularities = [item for items in modularities for item in items]
+    print modularities
+    return modularities
+
+
+modfile = open(modfilename,'w')
 modfile.write("network                                   GroundTruth    Detected-Louvain\n")
 modfile.close()
+
+parallelimplementation(networklist)
+
+sys.exit()
 
 
 
@@ -405,8 +452,6 @@ for network in networklist:
     modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation",'a')
     modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(modu)+"\n")
     modfile.close()
-
-
 
 
 # i = int(sys.argv[1])
