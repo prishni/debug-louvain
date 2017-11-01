@@ -247,7 +247,8 @@ def induced_graph_multilayer(partition, graph, status):
 
     #updating status
     for node1,node2 in ret.edges_iter():
-        if((node1 in layer[1] and node2 in layer[1]) or (node1 in layer[2] and node2 in layer[2])):
+        #if((node1 in layer[1] and node2 in layer[1]) or (node1 in layer[2] and node2 in layer[2])):
+        if((node1 in new_layer[1] and node2 in new_layer[1]) or (node1 in new_layer[2] and node2 in new_layer[2])):
             #add to node_l
             new_node_l[node1].add(node2)
             new_node_l[node2].add(node1)
@@ -369,7 +370,8 @@ import pickle
 networklist = os.listdir('./Raphael_27.6.17/synthetics')
 pathtowritecommu = "./resultsmixmod/detected_communities/"
 pathtosave = './resultsmixmod/modularity_comparisions/'
-modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation"
+modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_doinganything"
+
 
 '''
 #Comment following four lines if you want to run for all networks
@@ -389,13 +391,25 @@ def runformanynetworks(networklist):
         dtmod, dtcom = getSeries(str2)
         gtmod,gtcom = computegtmod(str2)
         output.append((gtmod, dtmod))
+        #print(str2+ ", " + str(gtmod) + ", " + str(dtmod))
+        #break
         modfile = open(modfilename, 'a')
         modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(dtmod)+"\n")
         modfile.close()
+        
+
+        #detected_commu = _get_com_wise_nodes(partition_at_level(dtcom, len(dtcom)-1))
+        #write_commus_infile(network,detected_commu,gtcom)
     return output
 
 
 def parallelimplementation(networklist):
+    #Open file to compare modularity values
+    modfile = open(modfilename,'w')
+    modfile.write("network                                   GroundTruth    Detected-Louvain\n")
+    modfile.close()
+
+    #Prepare args for parallel processings
     numnetworks = len(networklist)
 
     cores=4
@@ -412,46 +426,18 @@ def parallelimplementation(networklist):
 
     p = Pool(cores)
     modularities = p.map(runformanynetworks, args)
+
+    #Flatten list of lists returned by different cores
     modularities = [item for items in modularities for item in items]
+
     print modularities
     return modularities
 
 
-modfile = open(modfilename,'w')
-modfile.write("network                                   GroundTruth    Detected-Louvain\n")
-modfile.close()
 
 parallelimplementation(networklist)
 
 sys.exit()
-
-
-
-networklist = os.listdir('./Raphael_27.6.17/synthetics')
-for network in networklist:
-    str2 = "./nets/"+str(network)
-    modu, commus = getSeries(str2)
-    gtmod,gtcom = computegtmod(str2)
-    print("GT Mod: ",gtmod)
-    print ("FINAL_MODULARITY*** ", modu)
-    
-    #detected_commu = _get_com_wise_nodes(partition_at_level(commus, len(commus)-1))
-    #write_commus_infile(network,detected_commu,gtcom)
-    
-    '''
-    gtFile="./Raphael_27.6.17/infos/"+str(network)+".info"
-    gtf=open(gtFile)
-    gtmod=0
-    for line in gtf:
-        ##print()
-        if(len(line.split(" "))==1 and len(line.split("-"))==1 and len(line.split("_"))==1):
-            gtmod = float(line.strip())
-            #print("gtmod "+str(gtmod))
-            break
-	'''
-    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation",'a')
-    modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(modu)+"\n")
-    modfile.close()
 
 
 # i = int(sys.argv[1])

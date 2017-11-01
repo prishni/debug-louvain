@@ -4,11 +4,12 @@ import pickle
 import math
 from mixmod_wt.Status import Status
 #from mixmod_wt.new_modularity import __modularity
-from mixmod_wt.mixmod_wt_correctimp_aijfxd import __modularity
+from mixmod_wt.mixmod_wt_correctimp_exp3 import __modularity
 #from mixmod_wt.aux import  __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
 from mixmod_wt.aux import _get_com_wise_nodes, printsomeinformation
+from multiprocessing import Pool
 
 __PASS_MAX = -1
 __MIN = 0.0000001
@@ -239,12 +240,14 @@ def induced_graph_multilayer(partition, graph, status):
         weight = datas.get("weight", 1)
         com1 = list_node_com[node1]
         com2 = list_node_com[node2]
+        if(com1==com2):             # for selfloops add double edge weights
+            weight *= 2
         w_prec = ret.get_edge_data(com1, com2, {"weight":0}).get("weight", 1)
         ret.add_edge(com1, com2, weight = w_prec + weight)
 
     #updating status
     for node1,node2 in ret.edges_iter():
-        if((node1 in layer[1] and node2 in layer[1]) or (node1 in layer[2] and node2 in layer[2])):
+        if((node1 in new_layer[1] and node2 in new_layer[1]) or (node1 in new_layer[2] and node2 in new_layer[2])):
             #add to node_l
             new_node_l[node1].add(node2)
             new_node_l[node2].add(node1)
@@ -350,49 +353,111 @@ def getSeries(filename):
     ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
     dendogram, mod = louvain(ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu)
     return mod, dendogram
-    
-import os
-import sys
-import pickle
 
 def write_commus_infile(network,detected_commu,gtcom):
-	#writting the detected communities-------------------------------
+    #writting the detected communities-------------------------------
     detected_communities_file = open(pathtowritecommu+str(network)+".pickle","w")
     pickle.dump((gtcom,detected_commu),detected_communities_file,2)
     detected_communities_file.close()
     #-----------------------------------------------------------------
 
+    
+import os
+import sys
+import pickle
+
+networklist = os.listdir('./Raphael_27.6.17/synthetics')
+pathtowritecommu = "./resultsmixmod/detected_communities/"
+pathtosave = './resultsmixmod/modularity_comparisions/'
+modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_exp4"
+
+
 '''
 #Comment following four lines if you want to run for all networks
-#str2 = "./nets/network_0.2_1.0_0.05_1.0_0.0"
+str2 = "./nets/network_0.2_1.0_0.05_1.0_0.0"
 #str2 = "./nets/smallnetwork"
-str2 = "./nets/testnetwork3"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
 print("GT Mod: ",computegtmod(str2))
 
 sys.exit()
 '''
-pathtowritecommu = "./resultsmixmod/detected_communities/"
-pathtosave = './resultsmixmod/modularity_comparisions/'
-modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_aijfxd",'w')
-modfile.write("network                                   GroundTruth    Detected-Louvain\n")
-modfile.close()
+
+def runformanynetworks(networklist):
+    output = []
+    for network in networklist:
+        str2 = "./nets/"+str(network)
+        dtmod, dtcom = getSeries(str2)
+        gtmod,gtcom = computegtmod(str2)
+        output.append((gtmod, dtmod))
+        modfile = open(modfilename, 'a')
+        modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(dtmod)+"\n")
+        modfile.close()
+        #detected_commu = _get_com_wise_nodes(partition_at_level(dtcom, len(dtcom)-1))
+        #write_commus_infile(network,detected_commu,gtcom)
+    return output
 
 
-
-networklist = os.listdir('./Raphael_27.6.17/synthetics')
-for network in networklist:
-    str2 = "./nets/"+str(network)
-    modu, commus = getSeries(str2)
-    gtmod,gtcom = computegtmod(str2)
-    print("GT Mod: ",gtmod)
-    print ("FINAL_MODULARITY*** ", modu)
-    
-    #detected_commu = _get_com_wise_nodes(partition_at_level(commus, len(commus)-1))
-    #write_commus_infile(network,detected_commu,gtcom)
-    
-    modfile = open(pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_aijfxd",'a')
-    modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(modu)+"\n")
+def parallelimplementation(networklist):
+    #Open file to compare modularity values
+    modfile = open(modfilename,'w')
+    modfile.write("network                                   GroundTruth    Detected-Louvain\n")
     modfile.close()
 
+    #Prepare args for parallel processings
+    numnetworks = len(networklist)
+
+    cores=4
+    chunksize = numnetworks/cores
+
+    splits = []
+    for i in range(cores):
+        splits.append((i)*chunksize)
+    splits.append(numnetworks)
+
+    args = []
+    for i in range(cores):
+        args.append(networklist[splits[i]:splits[i+1]])
+
+    p = Pool(cores)
+    modularities = p.map(runformanynetworks, args)
+
+    #Flatten list of lists returned by different cores
+    modularities = [item for items in modularities for item in items]
+
+    print modularities
+    return modularities
+
+
+
+parallelimplementation(networklist)
+
+sys.exit()
+
+
+# i = int(sys.argv[1])
+# p = float(sys.argv[2])
+# a = float(sys.argv[3])
+# mu = float(sys.argv[4])
+# d = float(sys.argv[5])
+
+# #print p, a, mu, d
+# str1="./test"+str(i)+"/networks_alpha"+str(a)+"/"
+# str2=str1+"networks_p"+str(p)+"/networks_mu"+str(mu)+"/networks_density"+str(d)+"/new_format"
+# #print str2
+# if not os.path.exists(str2) :
+#     #print p, a, mu, d
+#     #print "No"
+#     exit()
+
+#modu, commus = getSeries(str2)
+
+##print "FINAL_MODULARITY*** ", modu
+
+'''with open(str2+'_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
+    pickle.dump(partition_at_level(commus, len(commus)-1), handle)
+with open(str2+'_modu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
+    pickle.dump(modu, handle)
+with open(str2+'_commu_benching_frac_march21_louvain_mixmod.pickle', 'wb') as handle:
+    pickle.dump(commus, handle)
+#print ""'''

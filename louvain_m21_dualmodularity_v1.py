@@ -99,7 +99,7 @@ def __one_level(graph, status, status_list, level_count, verbose = 0) :
         nb_pass_done += 1
         cur_mod2 = cur_mod
 
-        print("outside loop")
+        #print("outside loop")
         for node in graph.nodes():
             com_node = status.node2com[node]
             neigh_communities = __neighcom(node, graph, status)
