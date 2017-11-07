@@ -4,7 +4,9 @@ import pickle
 import math
 from mixmod_wt.Status import Status
 #from mixmod_wt.new_modularity import __modularity
-from mixmod_wt.mixmod_wt_correctimp_exp3 import __modularity
+#from mixmod_wt.mixmod_wt_correctimp_exp3_1 import __modularity
+from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
+
 #from mixmod_wt.aux import  __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
@@ -74,6 +76,28 @@ def __neighcom(node, graph, status) :
             weights.append(neighborcom)
     return weights
 
+def __neighcom2(node, graph, status) :
+    weights = []
+    nodes_in_same_com=[]
+    for neighbor in graph[node]:
+        if neighbor != node :
+            neighborcom = status.node2com[neighbor]
+
+            #lines added----------
+            if(neighborcom==status.node2com[node]):
+                continue
+            #---------------------
+            weights.append(neighborcom)
+    
+    for n in graph.nodes():
+        ncom = status.node2com[n]
+        if(n==node):
+            continue;
+        if(ncom==status.node2com[node]):
+            nodes_in_same_com.append(n)
+
+    #return weights
+    return weights,nodes_in_same_com
 
 #New __one_level function (from Raphael's code)
 def __one_level(graph, status, status_list, level_count, verbose=0) :
@@ -169,6 +193,127 @@ def __one_level(graph, status, status_list, level_count, verbose=0) :
 
 #__modularity(_get_commu_dict(status_list[-1]), status)
 
+def __one_level2(graph, status, status_list, level_count, verbose=0) :
+     #print("graph edges: ",graph.edges(data = True))
+    modif = True
+    nb_pass_done = 0
+    #p_temp = __renumber(status.node2com)
+    p_temp = status.node2com
+    status_list.append(p_temp)
+    #cur_mod = __modularity(_get_commu_dict(status_list[-1]), status, graph)
+    cur_mod = __modularity(_get_com_wise_nodes(status_list[-1]), status, graph)
+    
+    status_list.pop()
+    new_mod = cur_mod
+    #print "# id_node from_com to_com local_mod mod"
+    while modif  and nb_pass_done != __PASS_MAX :
+        cur_mod = new_mod
+        modif = False
+        nb_pass_done += 1
+        cur_mod2 = cur_mod
+
+        for node in graph.nodes():
+            com_node = status.node2com[node]
+            #neigh_communities = __neighcom(node, graph, status)
+            #status.node2com[node] = -1
+
+            #----------------------------------------------
+            neigh_communities,nodes_in_same_com = __neighcom2(node, graph, status)
+            status.node2com[node] = -1
+            for n in nodes_in_same_com:
+                status.node2com[n] = -1
+            #-----------------------------------------------
+
+            best_com = com_node
+            best_increase = 0
+
+
+            for com in neigh_communities:
+
+                temp_dict = {com:_get_com_wise_nodes(status.node2com)[com]}
+                base_mod_of_community = __modularity(temp_dict, status, graph)
+
+                #status.node2com[node] = com
+
+                #-----------------------------------------------------------
+                status.node2com[node] = com
+                for n in nodes_in_same_com:        
+                    status.node2com[n] = com
+                #-----------------------------------------------------------
+
+
+                #p_temp = __renumber(status.node2com)
+                p_temp = status.node2com
+                status_list.append(p_temp)
+                
+                #incr = __modularity(_get_commu_dict(status_list[-1]), status, graph) - cur_mod2
+
+                temp_dict = {com:_get_com_wise_nodes(status_list[-1])[com]}
+                incr = __modularity(temp_dict, status, graph) - base_mod_of_community
+                
+                
+
+
+                status_list.pop()
+
+                if incr > best_increase :
+                    best_increase = incr
+                    best_com = com
+
+                if(verbose): printsomeinformation(node, com, best_com, incr, status.node_l, status.node_c)
+
+                #status.node2com[node] = -1
+
+                #----------------------------------------------
+                status.node2com[node] = -1
+                for n in nodes_in_same_com:
+                    status.node2com[n] = -1
+                #-----------------------------------------------
+
+            #status.node2com[node] = best_com
+
+
+            #----------------------------------------------
+            status.node2com[node] = best_com
+            for n in nodes_in_same_com:
+                status.node2com[n] = best_com
+            #-----------------------------------------------
+            
+            #p_temp = __renumber(status.node2com)
+            p_temp = status.node2com
+            status_list.append(p_temp)
+            #cur_mod2 =  __modularity(_get_commu_dict(status_list[-1]), status, graph)
+            cur_mod2 =  __modularity(_get_com_wise_nodes(status_list[-1]), status, graph)
+            status_list.pop()
+
+            if best_com != com_node :
+                modif = True
+            
+            if(verbose):
+                pass
+                #print("{0} {1} {2}".format(node, com_node, best_com))
+                #nx.draw(graph, with_labels = True)
+                #plt.show()
+
+                '''p_temp2 = __renumber(status.node2com)
+                status_list.append(p_temp2)
+                incr =  __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status) - cur_mod2
+                
+                print node, com_node, best_com, incr, best_increase, __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), status), cur_mod2
+                status_list.pop()'''
+
+        #p_temp = __renumber(status.node2com)
+        p_temp = status.node2com
+        status_list.append(p_temp)
+        #new_mod = __modularity(_get_commu_dict(status_list[-1]), status, graph)
+        new_mod = __modularity(_get_com_wise_nodes(status_list[-1]), status, graph)
+        
+        print("In __one_level new_mod: {0:.4f} cur_mod: {1:.4f}".format(new_mod,cur_mod))
+        if(verbose): print("Status list[-1]: ",status_list[-1])
+        
+        status_list.pop()
+        if new_mod - cur_mod < __MIN :
+            break
 
 def induced_graph_multilayer(partition, graph, status):
     new_layer =defaultdict(set)
@@ -205,6 +350,7 @@ def induced_graph_multilayer(partition, graph, status):
         if is_top and is_bot: # add two nodes into induced graph
             ret.add_node(id_com)
             ret.add_node(id_extra_com)
+
             #print("idcom: ", id_com, "idextracom: ",id_extra_com)
             #updating status
             new_layer[1].add(id_com)
@@ -289,22 +435,25 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
     #new_mod = __modularity(_get_commu_dict(status.node2com), status, current_graph)
     new_mod = __modularity(_get_com_wise_nodes(status.node2com), status, current_graph)
     partition = __renumber(status.node2com)
-    
+
     status_list.append(partition)
     ##print str(mod)+" "+str(new_mod)+" OUT"
     mod = new_mod
     current_graph,part,status = induced_graph_multilayer(partition, current_graph,status)
-    #print("Louvain, partition: ",partition)
-    status.init(current_graph)
 
+    #print("node2com ",status.node2com)
+    #status.init(current_graph)
+    status.init(current_graph,part)
+    #print("node2com ",status.node2com)
     #print("status.layer: ",status.layer)
-
+    #print("partition after first iteration",partition)
     #sys.exit()
 
     while True :
         level_count+=1
         #print level_count
-        __one_level(current_graph, status, status_list, level_count, 1)
+
+        __one_level2(current_graph, status, status_list, level_count, 1)
         
         partition = __renumber(status.node2com)
         #partition = status.node2com
@@ -344,6 +493,8 @@ def computegtmod(filename):
     status.couple = couple
     status.mu = mu
     mod = __modularity(commu, status, ml_network)
+    print("GT com: ")
+    print(commu)
     return mod,commu
 
 def getSeries(filename):
@@ -361,27 +512,6 @@ def write_commus_infile(network,detected_commu,gtcom):
     detected_communities_file.close()
     #-----------------------------------------------------------------
 
-    
-import os
-import sys
-import pickle
-
-networklist = os.listdir('./Raphael_27.6.17/synthetics')
-pathtowritecommu = "./resultsmixmod/detected_communities/"
-pathtosave = './resultsmixmod/modularity_comparisions/'
-modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_exp4"
-
-
-'''
-#Comment following four lines if you want to run for all networks
-str2 = "./nets/network_0.2_1.0_0.05_1.0_0.0"
-#str2 = "./nets/smallnetwork"
-modu, commus = getSeries(str2)
-print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
-print("GT Mod: ",computegtmod(str2))
-
-sys.exit()
-'''
 
 def runformanynetworks(networklist):
     output = []
@@ -429,8 +559,30 @@ def parallelimplementation(networklist):
     return modularities
 
 
+import os
+import sys
+import pickle
 
-parallelimplementation(networklist)
+networklist = os.listdir('./Raphael_27.6.17/synthetics')
+pathtowritecommu = "./resultsmixmod/detected_communities/"
+pathtosave = './resultsmixmod/modularity_comparisions/'
+modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_newalgo1"
+
+
+
+#Comment following four lines if you want to run for all networks
+str2 = "./nets/network_0.6_0.1_0.05_1.0_0.0"
+#str2 = "./nets/testnetwork3"
+modu, commus = getSeries(str2)
+
+print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
+print("GT Mod: ",computegtmod(str2))
+
+sys.exit()
+
+
+
+#parallelimplementation(networklist)
 
 sys.exit()
 
