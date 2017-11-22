@@ -2,6 +2,7 @@ import networkx as nx
 import random
 import pickle
 import math
+from sklearn.metrics import *
 from mixmod_wt.Status import Status
 #from mixmod_wt.new_modularity import __modularity
 from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
@@ -362,6 +363,25 @@ def write_commus_infile(network,detected_commu,gtcom):
     detected_communities_file.close()
     #-----------------------------------------------------------------
 
+def generate_nmi_file(commu,louvain1):   
+    print(type(commu))
+    louvain_p = dict(louvain1)
+    print(type(louvain_p))
+    true_labels = [None]*200
+    for k, v in commu.items():
+        for node in v:
+            #print("node: ",node)
+            true_labels[node-1] = k
+    
+    predicted_labels = [None]*len(true_labels)
+    for k, v in louvain_p.items():
+        for node in v:
+            #print("node: ",node)
+            predicted_labels[node-1] = k
+    
+    nmival = normalized_mutual_info_score(true_labels, predicted_labels)
+    return nmival
+
     
 import os
 import sys
@@ -370,19 +390,19 @@ import pickle
 networklist = os.listdir('./Raphael_27.6.17/synthetics')
 pathtowritecommu = "./resultsmixmod/detected_communities/"
 pathtosave = './resultsmixmod/modularity_comparisions/'
-modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_doinganything"
+modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_doinganything_nmi"
+nmifilename=modfilename+"_nmi"
 
 
-'''
 #Comment following four lines if you want to run for all networks
-str2 = "./nets/network_0.2_1.0_0.05_1.0_0.0"
+str2 = "./nets/testnetwork0"
 #str2 = "./nets/smallnetwork"
 modu, commus = getSeries(str2)
 print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
 print("GT Mod: ",computegtmod(str2))
 
 sys.exit()
-'''
+
 
 def runformanynetworks(networklist):
     output = []
@@ -396,7 +416,13 @@ def runformanynetworks(networklist):
         modfile = open(modfilename, 'a')
         modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(dtmod)+"\n")
         modfile.close()
-        
+
+
+        nmifile = open(nmifilename,'a')
+        dtcomdict =_get_com_wise_nodes(partition_at_level(dtcom,len(dtcom)-1))
+        #print(type(dtcomdict))
+        nmifile.write(str2+":   "+generate_nmi_file(gtcom,dtcomdict))
+        nmifile.close()
 
         #detected_commu = _get_com_wise_nodes(partition_at_level(dtcom, len(dtcom)-1))
         #write_commus_infile(network,detected_commu,gtcom)
@@ -408,6 +434,10 @@ def parallelimplementation(networklist):
     modfile = open(modfilename,'w')
     modfile.write("network                                   GroundTruth    Detected-Louvain\n")
     modfile.close()
+
+    nmifile = open(nmifilename,'a')
+    nmifile.write("network                                   NMI ")
+    nmifile.close()
 
     #Prepare args for parallel processings
     numnetworks = len(networklist)

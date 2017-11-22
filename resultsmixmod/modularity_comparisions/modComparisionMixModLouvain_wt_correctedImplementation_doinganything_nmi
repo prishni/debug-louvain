@@ -1,0 +1,2 @@
+network                                   GroundTruth    Detected-Louvain
+./nets/network_0.2_0.9_0.05_1.0_0.0:    0.564525704749  0.542614118086
