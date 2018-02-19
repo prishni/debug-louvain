@@ -5,7 +5,8 @@ import math
 from sklearn.metrics import *
 from mixmod_wt.Status import Status
 #from mixmod_wt.new_modularity import __modularity
-from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
+from mixmod_wt.mixmod_wt_correctingImplementation_without_half import __modularity
+from mixmod_wt.aux import  read_raw_network
 #from mixmod_wt.aux import  __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
@@ -29,7 +30,7 @@ def is_commu(e1, e2, commu):
     return False
 
 def partition_at_level(dendogram, level) :
-    partition = dendogram[0].copy()
+
     for index in range(1, level + 1) :
         for node, community in partition.iteritems() :
             partition[node] = dendogram[index][community]
@@ -189,6 +190,7 @@ def induced_graph_multilayer(partition, graph, status):
     for id_node in partition:
         partition_rebuild.setdefault(partition[id_node], [])
         partition_rebuild[partition[id_node]].append(id_node)
+        
     
     for id_com in partition_rebuild.keys():
         
@@ -331,10 +333,12 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
 
 def computegtmod(filename):
     fnetwork = 0
-    with open(filename+'_ml_network.pickle') as handle:
-        fnetwork = pickle.load(handle)
-    ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
+    #with open(filename+'_ml_network.pickle') as handle:
+    #    fnetwork = pickle.load(handle)
+    #ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
     
+    ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu =read_raw_network(filename,weighted)
+
     status = Status()
     status.layer=layer
     status.node_l=node_l
@@ -345,14 +349,18 @@ def computegtmod(filename):
     status.edge_c=edge_c
     status.couple = couple
     status.mu = mu
+
     mod = __modularity(commu, status, ml_network)
     return mod,commu
 
+
 def getSeries(filename):
     fnetwork = 0
-    with open(filename+'_ml_network.pickle') as handle:
-        fnetwork = pickle.load(handle)
-    ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
+    #with open(filename+'_ml_network.pickle') as handle:
+    #    fnetwork = pickle.load(handle)
+    #ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = fnetwork
+    ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = read_raw_network(filename,weighted)
+
     dendogram, mod = louvain(ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu)
     return mod, dendogram
 
@@ -364,7 +372,7 @@ def write_commus_infile(network,detected_commu,gtcom):
     #-----------------------------------------------------------------
 
 def generate_nmi_file(commu,louvain1):   
-    print(type(commu))
+    #print(type(commu))
     louvain_p = dict(louvain1)
     print(type(louvain_p))
     true_labels = [None]*200
@@ -387,27 +395,27 @@ import os
 import sys
 import pickle
 
-networklist = os.listdir('./Raphael_27.6.17/synthetics')
-pathtowritecommu = "./resultsmixmod/detected_communities/"
-pathtosave = './resultsmixmod/modularity_comparisions/'
-modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_doinganything_nmi"
-nmifilename=modfilename+"_nmi"
+
+#nmifilename=modfilename+"_nmi"
 
 
 #Comment following four lines if you want to run for all networks
-str2 = "./nets/testnetwork0"
+#str2 = "./nets/testnetwork0"
 #str2 = "./nets/smallnetwork"
-modu, commus = getSeries(str2)
-print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
-print("GT Mod: ",computegtmod(str2))
+#modu, commus = getSeries(str2)
+#print("Modularity: ", modu, "Communities: ",_get_com_wise_nodes(partition_at_level(commus, len(commus)-1)))
+#print("GT Mod: ",computegtmod(str2))
 
-sys.exit()
+#sys.exit()
 
 
 def runformanynetworks(networklist):
     output = []
     for network in networklist:
-        str2 = "./nets/"+str(network)
+        #str2 = "./nets/"+str(network)
+        #str2 = "./Raphael_27.6.17/net_networks/" +str(network)
+        str2 = './syntheticNetworkGeneration/netsForDtDmDb/_networks/netsByGenerateNetsv3/alpha0.7/' + str(network)
+
         dtmod, dtcom = getSeries(str2)
         gtmod,gtcom = computegtmod(str2)
         output.append((gtmod, dtmod))
@@ -418,11 +426,11 @@ def runformanynetworks(networklist):
         modfile.close()
 
 
-        nmifile = open(nmifilename,'a')
-        dtcomdict =_get_com_wise_nodes(partition_at_level(dtcom,len(dtcom)-1))
+        #nmifile = open(nmifilename,'a')
+        #dtcomdict =_get_com_wise_nodes(partition_at_level(dtcom,len(dtcom)-1))
         #print(type(dtcomdict))
-        nmifile.write(str2+":   "+generate_nmi_file(gtcom,dtcomdict))
-        nmifile.close()
+        #nmifile.write(str2+":   "+generate_nmi_file(gtcom,dtcomdict))
+        #nmifile.close()
 
         #detected_commu = _get_com_wise_nodes(partition_at_level(dtcom, len(dtcom)-1))
         #write_commus_infile(network,detected_commu,gtcom)
@@ -435,9 +443,9 @@ def parallelimplementation(networklist):
     modfile.write("network                                   GroundTruth    Detected-Louvain\n")
     modfile.close()
 
-    nmifile = open(nmifilename,'a')
-    nmifile.write("network                                   NMI ")
-    nmifile.close()
+    #nmifile = open(nmifilename,'a')
+    #nmifile.write("network                                   NMI ")
+    #nmifile.close()
 
     #Prepare args for parallel processings
     numnetworks = len(networklist)
@@ -463,11 +471,20 @@ def parallelimplementation(networklist):
     print modularities
     return modularities
 
+#networklist = os.listdir('./Raphael_27.6.17/net_networks')
+#pathtowritecommu = "./resultsmixmod/detected_communities/"
+#pathtosave = './resultsmixmod/modularity_comparisions/'
+#modfilename = pathtosave+"modComparisionMixModLouvain_wt_oldcode_V2_with_cihi"
+#parallelimplementation(networklist)
 
+#sys.exit()
 
+weighted =0
+pathtosave = "./syntheticNetworkGeneration/results/nets121_incWeights/alpha0.7/dt_db_mod_files_corrctImp/"
+modfilename = pathtosave+"mixmod_for_corrImpl"
+networklist = os.listdir('./syntheticNetworkGeneration/netsForDtDmDb/_networks/netsByGenerateNetsv3/alpha0.7/')
+print("number of networks: {0}".format(len(networklist)))
 parallelimplementation(networklist)
-
-sys.exit()
 
 
 # i = int(sys.argv[1])

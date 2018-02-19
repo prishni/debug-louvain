@@ -144,7 +144,7 @@ class Status :
                 inc = 0.
                 for neighbor, datas in graph[node].items() :
                     weight = datas.get("weight", 1)
-                    if weight <= 0 :
+                    if weight < 0 :
                         raise ValueError("Bad graph type, use positive weights")
                     if part[neighbor] == com :
                         if neighbor == node :

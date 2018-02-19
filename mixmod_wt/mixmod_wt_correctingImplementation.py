@@ -51,7 +51,7 @@ def __modularity(commu, status, graph):
             E12+=graph[n][nei].get('weight',1)
     E12 = E12/2
     #--------------------------------------------------------------------------------
-
+    print(E[1],E[2],E12)
    
     modularity=0    
     x1={}
@@ -80,7 +80,7 @@ def __modularity(commu, status, graph):
                         for n2 in commu[c]:
                             if n2 in layer[l]:
                                 if(n1==n2):
-                                   if(n1 not in node_l[n1]): 
+                                   if(n1 not in node_l.get(n1,set())): 
                                        continue
                                 hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                                 hj =sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
@@ -119,11 +119,13 @@ def __modularity(commu, status, graph):
                     if n1 in node_c:
                         ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_c[n1]])
                     else:
+                        #ci=0
                         ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                     
                     if n2 in node_c:
                         cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_c[n2]])
                     else:
+                        #cj=0
                         cj = sum([graph[n2][nbr].get('weight',1) for nbr in node_l.get(n2,set())])
                     
                     cicj += (ci*cj)
@@ -162,7 +164,7 @@ def __modularity(commu, status, graph):
             for n1 in commu[c]:
                 for n2 in commu[c]:
                     if(n1==n2):
-                       if(n1 not in node_l[n1]):   #implies not a loop
+                       if(n1 not in node_l.get(n1,set())):   #implies not a loop
                            continue
                     hi = sum([graph[n1][nbr].get('weight',1) for nbr in node_l.get(n1,set())])
                     ci = sum([graph[n1][nbr].get('weight',1) for nbr in node_c.get(n1,set())])
