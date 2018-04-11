@@ -20,7 +20,7 @@ def build_network(layer, node_l, node_c,weightednode_l,weightednode_c, top, bot,
                 G.add_edge(n, n2,weight = weightednode_l[n][n2])
         for n in node_c:
             for n2 in node_c[n]:
-                G.add_edge(n, n2,weight = weightednode_l[n][n2])
+                G.add_edge(n, n2,weight = weightednode_c[n][n2])
     
     else:
         for n in node_l:

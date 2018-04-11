@@ -1,0 +1,5 @@
+verbose = 0     // print log or not during iterations
+dispintv = 10   // print log every 10 iterations if verbose=1
+rand_seed = 222 // random seed
+maxiternum = 500 // maximum iterations before convergence
+minper = 1e-6   // convergence threshold

@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------------
 #
-#Generating networks by adding weight sto the edges
+#Generating networks by adding weights to the edges
 #
 #-------------------------------------------------------------------------------------
 import os, sys, time
@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 from multiprocessing import Pool
 from copy import deepcopy
 
-desired_dm = 3.0
+desired_dm = 1.0
 N=100
 num_layers =2
 mu = 0.05

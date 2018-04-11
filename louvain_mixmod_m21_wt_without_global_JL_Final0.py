@@ -5,6 +5,7 @@ import math
 from sklearn.metrics import *
 from mixmod_wt.Status import Status
 from mixmod_wt.mixmod_wt_correctingImplementation_without_half import __modularity
+#from mixmod_wt.modularity_LFR_our import getModularityQ as __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
 from mixmod_wt.aux import _get_com_wise_nodes, printsomeinformation, read_raw_network
@@ -78,7 +79,7 @@ def __neighcom(node, graph, status) :
 
 #New __one_level function (from Raphael's code)
 def __one_level(original_graph, original_status, graph, status, status_list, level_count, verbose=0) :
-	#print("graph edges: ",graph.edges(data = True))
+	##print("graph edges: ",graph.edges(data = True))
 	modif = True
 	modif_global = False
 	nb_pass_done = 0
@@ -96,7 +97,7 @@ def __one_level(original_graph, original_status, graph, status, status_list, lev
 				group[node1].add(node2)
 	#----------------------------------------------------------------------				
 	'''
-	print "Status List length, level_count ",len(status_list),level_count
+	#print "Status List length, level_count ",len(status_list),level_count
  	if level_count==1:
  		verbose=True
  		
@@ -126,7 +127,7 @@ def __one_level(original_graph, original_status, graph, status, status_list, lev
 					
 			base_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), original_status, original_graph)
 			if ffff==0:
-				print "base_mod, level ",base_mod,level_count,len(status_list)
+				#print "base_mod, level ",base_mod,level_count,len(status_list)
 				ffff=1
 						
 			neigh_communities = __neighcom(node, graph, status)
@@ -159,7 +160,7 @@ def __one_level(original_graph, original_status, graph, status, status_list, lev
 					
 			#if com_node != best_com:
 			#	if verbose:
-			#		print "node",node,"moved from", com_node, "to", best_com,":", best_increase
+			#		#print "node",node,"moved from", com_node, "to", best_com,":", best_increase
 				
 				
 					
@@ -175,7 +176,7 @@ def __one_level(original_graph, original_status, graph, status, status_list, lev
 			#p_temp = __renumber(status.node2com)
 			#p_temp = status.node2com
 			#status_list.append(p_temp)
-			#print __modularity(_get_com_wise_nodes(status_list[-1]), status, original_graph)
+			##print __modularity(_get_com_wise_nodes(status_list[-1]), status, original_graph)
 			#status_list.pop()
 			
 			original_status.node2com = partition_at_level(status_list, level_count)
@@ -191,8 +192,8 @@ def __one_level(original_graph, original_status, graph, status, status_list, lev
 		status_list.append(p_temp)
 		new_mod = __modularity(_get_com_wise_nodes(partition_at_level(status_list, level_count)), original_status, original_graph)
 		
-		print "In __one_level new_mod: ", new_mod
-		#		if(verbose): print("Status list[-1]: ",status_list[-1])
+		#print "In __one_level new_mod: ", new_mod
+		#		if(verbose): #print("Status list[-1]: ",status_list[-1])
 		
 		status_list.pop()
 		if modif == False:
@@ -221,8 +222,8 @@ def induced_graph_multilayer(partition, graph, status):
 		partition_rebuild.setdefault(partition[id_node], [])
 		partition_rebuild[partition[id_node]].append(id_node)
 		
-	#print "Partition ",partition
-	#print "Partition Rebuild ",partition_rebuild
+	##print "Partition ",partition
+	##print "Partition Rebuild ",partition_rebuild
 		
 	
 	for id_com in partition_rebuild.keys():
@@ -241,7 +242,7 @@ def induced_graph_multilayer(partition, graph, status):
 		if is_top and is_bot: # add two nodes into induced graph
 			ret.add_node(id_com)
 			ret.add_node(id_extra_com)
-			#print("idcom: ", id_com, "idextracom: ",id_extra_com)
+			##print("idcom: ", id_com, "idextracom: ",id_extra_com)
 			#updating status
 			new_layer[1].add(id_com)
 			new_layer[2].add(id_extra_com)
@@ -260,7 +261,7 @@ def induced_graph_multilayer(partition, graph, status):
 
 		else: # add one node into induced graph
 			ret.add_node(id_com)
-			#print("idcom: ", id_com)
+			##print("idcom: ", id_com)
 			#updating status
 			if(is_top): new_layer[1].add(id_com)
 			elif(is_bot): new_layer[2].add(id_com)
@@ -328,7 +329,7 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
 	level_count = 0
 
 	mod = __modularity(_get_commu_dict(status.node2com), status, graph)
-	print "Modularity before First Iteration ",mod
+	#print "Modularity before First Iteration ",mod
 
 	__one_level(graph, old_status, current_graph, status, status_list, level_count)
 	partition = __renumber(status.node2com)
@@ -339,26 +340,26 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
 
 	p = _get_com_wise_nodes(partition_at_level(status_list, len(status_list)-1))
 	new_mod = __modularity(p, old_status, graph)
-	print "-> merge mod after level 0 : ", mod1
-	print "-> Modularity after level 0: ",new_mod, "\n"
+	#print "-> merge mod after level 0 : ", mod1
+	#print "-> Modularity after level 0: ",new_mod, "\n"
 
-	#print("Louvain, partition: ",partition)
-	print("Louvain partition: ",part)
+	##print("Louvain, partition: ",partition)
+	#print("Louvain partition: ",part)
 	A = nx.adjacency_matrix(current_graph)
-	#print(A.todense())
+	##print(A.todense())
 	
 	status.init(current_graph)
 	
 	while True :
 		level_count+=1
-		#print level_count
+		##print level_count
 		modif=__one_level(graph, old_status, current_graph, status, status_list, level_count, 1)
 		
 		partition = __renumber(status.node2com)
 		status_list.append(partition)
 
 		new_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), old_status, graph)  
-		print "-> Modularity after level ",level_count,": ",new_mod, "\n"
+		#print "-> Modularity after level ",level_count,": ",new_mod, "\n"
 		
 		#new_mod = __modularity(_get_commu_dict(partition), status, current_graph)
 		#new_mod = __modularity(_get_com_wise_nodes(partition), status, current_graph)
@@ -374,10 +375,10 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
 		#status.init(current_graph)
 		status.init(current_graph, part)
 
-		#print("Louvain, partition: ",partition)
-		#		print("Louvain, part after: ",part)
+		##print("Louvain, partition: ",partition)
+		#		#print("Louvain, part after: ",part)
 		#		A = nx.adjacency_matrix(current_graph)
-		#print(A.todense())
+		##print(A.todense())
 		
 		
 	return status_list, mod
@@ -402,6 +403,26 @@ def computegtmod(filename,weighted):
 	return mod,commu
 
 
+def compute_nmi(gtcom,dtcom):
+  num_nodes = 200
+  true_labels = [None]*num_nodes
+  pred_labels = [None]*num_nodes
+
+  linenum = 1
+  for commu in gtcom:
+    for c in list(gtcom[commu]):
+        true_labels[c-1] = linenum
+    linenum+=1
+  linenum=1
+  for d in dtcom:
+    for node in list(dtcom[d]):
+        pred_labels[node-1] = linenum
+    linenum+=1
+
+  #Normalised mutual information. Function present in sklearn.metrics. Do not forget to import.
+  nmi = normalized_mutual_info_score(true_labels, pred_labels) 
+  return nmi
+
 def getSeries(filename,weighted):
 	'''network_name = "networks_low_couple/" + filename.split('/')[-1]
 
@@ -421,13 +442,13 @@ def getSeries(filename,weighted):
 			line=line.rstrip()
 			line=line.split()
 			layer[l_ID]=set()
-			#print line
+			##print line
 			for n in line:
 				layer[l_ID].add(int(n))
 			line=fp.readline()
 			line=int(line.rstrip())
 			n_edge=line
-			#print n_edge
+			##print n_edge
 			edge_l[l_ID]=n_edge
 			for j in range(0,n_edge):
 				line=fp.readline()
@@ -448,7 +469,7 @@ def getSeries(filename,weighted):
 		line=fp.readline()
 		line=line.rstrip()
 		n_couple=int(line)
-		#print n_couple
+		##print n_couple
 		node_c={}	   
 		top={}
 		bot={}
@@ -457,7 +478,7 @@ def getSeries(filename,weighted):
 
 		for i in range(0,n_couple):
 			line=fp.readline()
-			#print line
+			##print line
 			line=line.rstrip()
 			line=line.split()
 			top[c_ID]=int(line[0])
@@ -468,7 +489,7 @@ def getSeries(filename,weighted):
 			line=fp.readline()
 			line=int(line.rstrip())
 			n_edge=line
-			#print n_edge
+			##print n_edge
 			edge_c[c_ID]=n_edge
 			count_edge = 0
 			for j in range(0,n_edge):
@@ -490,7 +511,7 @@ def getSeries(filename,weighted):
 
 		line=fp.readline()
 		line=line.rstrip()
-		#print line
+		##print line
 		n_comm=int(line)
 		commu={}
 		com_ID=1
@@ -527,9 +548,9 @@ def getSeries(filename,weighted):
 	commu =_get_com_wise_nodes(partition_at_level(dendogram, len(dendogram)-1))
 	#commu =_get_commu_dict(partition_at_level(dendogram, len(dendogram)-1))
 	mod = __modularity(commu, status, ml_network)
-	print "--------- BEF RET ---------"
-	print mod_old, mod
-	print "----------------"
+	#print "--------- BEF RET ---------"
+	#print mod_old, mod
+	#print "----------------"
 	
 	return mod, dendogram
 
@@ -541,19 +562,19 @@ def write_commus_infile(network,detected_commu,gtcom):
 	#-----------------------------------------------------------------
 
 def generate_nmi_file(commu,louvain1):   
-	print(type(commu))
+	#print(type(commu))
 	louvain_p = dict(louvain1)
-	print(type(louvain_p))
+	#print(type(louvain_p))
 	true_labels = [None]*200
 	for k, v in commu.items():
 		for node in v:
-			#print("node: ",node)
+			##print("node: ",node)
 			true_labels[node-1] = k
 	
 	predicted_labels = [None]*len(true_labels)
 	for k, v in louvain_p.items():
 		for node in v:
-			#print("node: ",node)
+			##print("node: ",node)
 			predicted_labels[node-1] = k
 	
 	nmival = normalized_mutual_info_score(true_labels, predicted_labels)
@@ -577,14 +598,14 @@ import pickle
 	# str2 = "./nets/smallnetwork"
 	#modu, commus = getSeries(str2)
 	#x=_get_com_wise_nodes(partition_at_level(commus, len(commus)-1))
-	#print "Modularity Louvain: ", modu
+	##print "Modularity Louvain: ", modu
 	#for xs in x:
-	#	print xs,sorted(x[xs])
+	#	#print xs,sorted(x[xs])
 
 	# gtres = computegtmod(str2)
-	# print "Modularity GT: ", gtres[0]
+	# #print "Modularity GT: ", gtres[0]
 	# for xs in gtres[1]:
-	#  	print xs,sorted(gtres[1][xs])
+	#  	#print xs,sorted(gtres[1][xs])
 
 	# sys.exit()
 
@@ -599,20 +620,23 @@ def runformanynetworks(args):
 	for network in networklist:
 		#str2 = "./nets/" + str(network)
 		str2 = networkpath + str(network)
-		print "START For Network ",str2
+		#print "START For Network ",str2
 		dtmod, dtcom = getSeries(str2,weighted)
 		gtmod,gtcom = computegtmod(str2,weighted)
 		output.append((gtmod, dtmod))
-		#print(str2+ ", " + str(gtmod) + ", " + str(dtmod))
+		
+		dtcom  = _get_com_wise_nodes(partition_at_level(dtcom,len(dtcom)-1))
+		nmi = compute_nmi(gtcom,dtcom)
+		##print(str2+ ", " + str(gtmod) + ", " + str(dtmod))
 		#break
 		modfile = open(modfilename, 'a')
-		modfile.write(str2+ ":	"+ str(gtmod)+"  "+str(dtmod)+"\n")
+		modfile.write(str2+ ":	"+ str(gtmod)+"  "+str(dtmod)+"  "+str(nmi)+"\n")
 		modfile.close()
 
 		'''
 		nmifile = open(nmifilename,'a')
 		dtcomdict =_get_com_wise_nodes(partition_at_level(dtcom,len(dtcom)-1))
-		#print(type(dtcomdict))
+		##print(type(dtcomdict))
 		nmifile.write(str2+":   "+generate_nmi_file(gtcom,dtcomdict))
 		nmifile.close()
 		'''
@@ -654,21 +678,28 @@ def parallelimplementation(networklist,weighted,modfilename,networkpath):
 
 	#Flatten list of lists returned by different cores
 	modularities = [item for items in modularities for item in items]
-	#print "lala"
-	print modularities
+	##print "lala"
+	#print modularities
 	return modularities
 
 def main():
 	weighted=0
-	networkpath="./syntheticNetworkGeneration/netsForDtDmDb/_networks/morenets/alpha0.7/"
+	
+	networkpath="./syntheticNetworkGeneration/netsForcomparingBaseline/_networks/"
+	#networkpath="./syntheticNetworkGeneration/netsForDtDmDb/_networks/morenets/alpha0.7/"
 	#networkpath="./syntheticNetworkGeneration/netsForDtDmDb/_networks/netsByGenerateNetsv3/alpha0.7/"
 
-	pathtosave="./syntheticNetworkGeneration/results/nets121/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
+	pathtosave="./syntheticNetworkGeneration/netsForcomparingBaseline/results/"
+	#pathtosave="./syntheticNetworkGeneration/results/nets121/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
 	#pathtosave="./syntheticNetworkGeneration/results/nets121_incWeights/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
 
 	networklist = os.listdir(networkpath)
 	networklist=sorted(networklist)
-	modfilename = pathtosave+"mixmod_for_corrImpl"
+	modfilename = pathtosave+"mixmod_for_corrImpl_final0"
+	#modfilename = pathtosave+"mixmod_mQ"
+	#tmp = [weighted,modfilename,networkpath]
+	#networklist.append(tmp)
+	#runformanynetworks(networklist)
 	parallelimplementation(networklist,weighted,modfilename,networkpath)
 	sys.exit()
 
@@ -692,7 +723,7 @@ def main():
 
 
 			modfilename="./results/"+algoname+"/final0/"+str(networktype)+"/Mixmod_global_modu_not_global_low_couple_Final0.txt"
-			print("Output destination: ",modfilename)
+			#print("Output destination: ",modfilename)
 			#nmifilename="Mixmod_global_nmi.txt"
 			#networklist = os.listdir('./synthetics')
 			networklist = os.listdir(networkpath)
@@ -709,18 +740,18 @@ def main():
 	# mu = float(sys.argv[4])
 	# d = float(sys.argv[5])
 
-	# #print p, a, mu, d
+	# ##print p, a, mu, d
 	# str1="./test"+str(i)+"/networks_alpha"+str(a)+"/"
 	# str2=str1+"networks_p"+str(p)+"/networks_mu"+str(mu)+"/networks_density"+str(d)+"/new_format"
-	# #print str2
+	# ##print str2
 	# if not os.path.exists(str2) :
-	#	 #print p, a, mu, d
-	#	 #print "No"
+	#	 ##print p, a, mu, d
+	#	 ##print "No"
 	#	 exit()
 
 	#modu, commus = getSeries(str2)
 
-	##print "FINAL_MODULARITY*** ", modu
+	###print "FINAL_MODULARITY*** ", modu
 
 	'''with open(str2+'_commu_benching_all_march21_louvain_mixmod.pickle', 'wb') as handle:
 		pickle.dump(partition_at_level(commus, len(commus)-1), handle)
@@ -728,7 +759,7 @@ def main():
 		pickle.dump(modu, handle)
 	with open(str2+'_commu_benching_frac_march21_louvain_mixmod.pickle', 'wb') as handle:
 		pickle.dump(commus, handle)
-	#print ""'''
+	##print ""'''
 
 if __name__ == '__main__':
 	main()

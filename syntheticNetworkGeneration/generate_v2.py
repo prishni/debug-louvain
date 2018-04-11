@@ -4,8 +4,8 @@ import subprocess
 #new_dir = sys.argv[1]
 #dir_lfr = sys.argv[2]
 
-new_dir = "./netsForDtDmDb/"
-dir_lfr = "./"
+new_dir = "./netsForcomparingBaseline/"
+dir_lfr = "./netsForcomparingBaseline/dir_lfr/"
 
 
 if not os.path.exists(new_dir):
@@ -23,23 +23,23 @@ maxk=10		#Max degree
 mu =0.05
 
 # old experiments (lfr_multilayer_v1)
-# list_alpha = [0.4, 0.6, 0.8, 1.0]
-# list_p = [0.1,0.25,0.4,0.6,0.8]
-# list_density = [0.004, 0.01, 0.025, 0.04, 0.055, 0.07]
-# list_mu=[0.05, 0.20,0.75,0.55, 0.4, 0.6]
+	# list_alpha = [0.4, 0.6, 0.8, 1.0]
+	# list_p = [0.1,0.25,0.4,0.6,0.8]
+	# list_density = [0.004, 0.01, 0.025, 0.04, 0.055, 0.07]
+	# list_mu=[0.05, 0.20,0.75,0.55, 0.4, 0.6]
 
-# list_alpha = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
-# list_mu = [0.05, 0.20, 0.4, 0.55, 0.6, 0.75]
-# list_p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
-# list_p1 = [0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0]
-# list_p2 = [0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0]
+	# list_alpha = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+	# list_mu = [0.05, 0.20, 0.4, 0.55, 0.6, 0.75]
+	# list_p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+	# list_p1 = [0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0]
+	# list_p2 = [0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0]
 
-# list_alpha = [0.8]
-# list_mu = [0.05]#, 0.20, 0.4, 0.55, 0.6, 0.75]
-# list_p = [0.7]
-# #list_density = [0.9]#, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
-# list_p1 = [0.1]#, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0]
-# list_p2 = [0.1]# 0.3, 0.5, 0.7, 0.8, 0.9, 1.0]
+	# list_alpha = [0.8]
+	# list_mu = [0.05]#, 0.20, 0.4, 0.55, 0.6, 0.75]
+	# list_p = [0.7]
+	# #list_density = [0.9]#, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+	# list_p1 = [0.1]#, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0]
+	# list_p2 = [0.1]# 0.3, 0.5, 0.7, 0.8, 0.9, 1.0]
 
 # config1
 list_alpha = [0.1, 0.2, 0.4, 0.5, 0.6, 0.8, 0.9]
@@ -50,43 +50,43 @@ list_p = [0.6,0.7,0.8,0.9]
 list_p1 = [0.7]
 list_p2 = [0.0]
 
+#commented code
+	# config2
+	# list_alpha = [0.6]
+	# list_mu = [0.05]
+	# list_p = [0.6]
+	# list_p1 = [0.1, 0.3, 0.6, 0.8]
+	# list_p2 = [0.3]
 
-# config2
-# list_alpha = [0.6]
-# list_mu = [0.05]
-# list_p = [0.6]
-# list_p1 = [0.1, 0.3, 0.6, 0.8]
-# list_p2 = [0.3]
+	# config3
+	# list_alpha = [0.6]
+	# list_mu = [0.05]
+	# list_p = [0.6]
+	# list_p1 = [0.7]
+	# list_p2 = [0.1, 0.3, 0.6, 0.8]
 
-# config3
-# list_alpha = [0.6]
-# list_mu = [0.05]
-# list_p = [0.6]
-# list_p1 = [0.7]
-# list_p2 = [0.1, 0.3, 0.6, 0.8]
+	 
+	# config4
+	# list_alpha = [0.6]
+	# list_mu = [0.05]
+	# list_p = [0.2,0.4,0.6,0.8]
+	# list_p1 = [0.7]
+	#list_p2 = [0.3]
 
- 
-# config4
-# list_alpha = [0.6]
-# list_mu = [0.05]
-# list_p = [0.2,0.4,0.6,0.8]
-# list_p1 = [0.7]
-#list_p2 = [0.3]
-
-# config5
-# list_alpha = [0.6]
-# list_mu = [0.05, 0.2, 0.4, 0.55]
-# list_p = [0.6]
-# list_p1 = [0.7]
-# list_p2 = [0.3]
+	# config5
+	# list_alpha = [0.6]
+	# list_mu = [0.05, 0.2, 0.4, 0.55]
+	# list_p = [0.6]
+	# list_p1 = [0.7]
+	# list_p2 = [0.3]
 
 
 #for now lets just take one value for each parameter 
-list_alpha = [0.3,0.5,0.8]
-list_mu = [0.05]
-list_p = [0.3,0.5,0.8]
-list_p1 = [0.3,0.5,0.8]
-list_p2 = [0.0]
+list_alpha = [0.2,0.4,0.6,0.8]
+list_mu = [0.05,0.1,0.2,0.3]
+list_p = [0.2,0.4,0.6,0.8]
+list_p1 = [0.2,0.4,0.6,0.8]
+list_p2 = [0.0,0.1,0.2,0.3]
 
 
 def calculateDm():
@@ -122,7 +122,7 @@ def calculateDm():
 
 
 def _plot(avgdegree):
-	maxk = avgdegree +5
+	#maxk = avgdegree +5
 	i=0
 	nb_iteration = len(list_alpha) * len(list_mu) * len(list_p) * len(list_p1) * len(list_p2)
 
@@ -160,7 +160,6 @@ def _plot(avgdegree):
 						#sys.exit(1)
 						process = os.popen(cmd)
 						preprocessed = process.read()
-						print("popen done {0}".format(preprocessed))
 						process.close()
 						
 						if os.path.isfile(new_dir_p2 + "/new_format"):
@@ -181,7 +180,8 @@ def plot(dm):
 		dt = (i)*dm
 		avgdegree=round(dt)
 		_plot(avgdegree)
-_plot(10)
+
+_plot(k)
 #dm = calculateDm()
 #print("dm: ",round(dm))
 #plot(round(dm))

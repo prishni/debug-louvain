@@ -28,6 +28,10 @@ alphalist = [0.3,0.5,0.8]
 plist =[0.3,0.5,0.8]
 p1list =[0.3,0.5,0.8]
 
+#alphalist = [0.8]
+#plist =[0.8]
+#p1list =[0.8]
+
 def callForNonWeighted():
 	Basefilepath = "./netsForDtDmDb/_networks/baseNetworks/"
 	filepath = "./netsForDtDmDb/_networks/params/nonweighted/"
@@ -57,7 +61,7 @@ def callForNonWeighted():
 
 def callForWeighted():
 	Basefilepath = "./netsForDtDmDb/_networks/baseNetworks/"
-	filepath = "./netsForDtDmDb/_networks/params/weighted/"
+	filepath = "./netsForDtDmDb/_networks/params/weighted_dm1/"
 	count =0
 
 	for alpha in alphalist:
@@ -82,5 +86,5 @@ def callForWeighted():
 				print("{3}. Done for alpha: {0} P: {1} P1: {2}".format(alpha,p,p1,count))
 
 
-callForNonWeighted()
+#callForNonWeighted()
 callForWeighted()

@@ -1,122 +1,122 @@
-network                                   GroundTruth    Detected-Louvain
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_1.5:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_2.7:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_9.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_15.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_21.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_0.3:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_2.1:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_27.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_3.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_0.9:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_30.0:    0.521581658371  0.504902175928
-./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_9.0:    0.521581658371  0.504902175928
+network								   GroundTruth	Detected-Louvain
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_0.3:	0.323861314279  0.777550243343  0.60574190021
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_0.9:	0.398944355013  0.690980319473  0.618853215878
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_2.7:	0.443700607277  0.538111152368  0.615513975731
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_1.5:	0.404009755409  0.71028414375  0.620522284594
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_15.0:	0.445504196727  0.581060111316  0.727295303006
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_21.0:	0.468785676835  0.514437598385  0.763661937159
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_2.1:	0.426762519672  0.67205941421  0.618016507275
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_27.0:	0.469468983416  0.489914598781  0.736764826599
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_2.7:	0.426933818112  0.652353395062  0.62219428558
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_3.0:	0.443741612836  0.519280640387  0.633590396877
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_21.0:	0.444800137569  0.569196167339  0.701793585018
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_30.0:	0.468405214169  0.509572569437  0.757662345154
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_27.0:	0.442721942822  0.571749378045  0.71042823862
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_3.0:	0.425039112063  0.66097174195  0.648360132686
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_9.0:	0.466285768151  0.511278645952  0.748246610898
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_30.0:	0.442909306548  0.571754147602  0.718348584264
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_0.3:	0.345666233972  0.549415351575  0.559025735066
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_0.9:	0.41998642944  0.530103935731  0.573786131837
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.3_9.0:	0.444481208561  0.59022799907  0.715497570439
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_0.3:	0.363432694693  0.755059671202  0.584919864685
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_1.5:	0.44759781056  0.535277080638  0.654877371569
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_0.9:	0.368285446972  0.664788185764  0.590376009634
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_15.0:	0.523319190245  0.522914606273  0.835061250959
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_1.5:	0.408216580758  0.636525869194  0.609248266991
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_2.1:	0.463265409818  0.529128981622  0.675049099973
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_15.0:	0.439988532143  0.531115505768  0.7159743857
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_2.1:	0.421652840553  0.603578172562  0.600285483996
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_2.7:	0.473281253257  0.497649510978  0.680494872486
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_2.7:	0.423354427172  0.597069966164  0.649833689489
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_21.0:	0.527069204513  0.523156084513  0.839975244451
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_21.0:	0.44022394297  0.534369041954  0.722290227477
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_27.0:	0.529320830448  0.526726682351  0.828720635679
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_27.0:	0.439887321218  0.527365896131  0.717385231746
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_3.0:	0.428600919546  0.586098557192  0.632505198095
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_3.0:	0.477483441029  0.513190845703  0.71049136956
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_30.0:	0.438448765622  0.537050863396  0.735118201169
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_30.0:	0.530547672718  0.528025277657  0.830727865566
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_0.9_9.0:	0.439449676578  0.551920212855  0.72504078666
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_21.0_9.0:	0.511823510095  0.515036654767  0.823388048803
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_0.3:	0.363043279281  0.650121294241  0.570142916318
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_0.3:	0.380391960943  0.54197956017  0.54306060017
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_0.9:	0.387050325458  0.555696742246  0.582429001155
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_0.9:	0.424886792097  0.532209033806  0.586615240666
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_1.5:	0.404111738889  0.5798159  0.599121019196
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_1.5:	0.438271680155  0.512608900392  0.616156961311
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_15.0:	0.524924918173  0.527111541432  0.830664765709
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_15.0:	0.443119467237  0.522701816427  0.72592960342
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_2.1:	0.418609613671  0.547920772339  0.619065375678
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_2.1:	0.462355881438  0.51954748187  0.659150704323
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_2.7:	0.419521863919  0.548230781481  0.605418893153
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_2.7:	0.47560495672  0.502378755992  0.683805808724
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_21.0:	0.528913731853  0.523470404517  0.820561523762
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_21.0:	0.443623025952  0.512266101781  0.721574238516
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_27.0:	0.531936348882  0.531936348882  0.819428814332
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_27.0:	0.441898003916  0.512752091268  0.727109808025
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_3.0:	0.473668700208  0.506315464472  0.701695505109
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_3.0:	0.422219982889  0.540436504  0.636424124822
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_30.0:	0.532563085559  0.530207443559  0.83411743492
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_30.0:	0.443393691162  0.499584854657  0.713595961831
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_27.0_9.0:	0.512707965578  0.506336056048  0.852350161739
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_1.5_9.0:	0.441400127623  0.529601681173  0.72310397629
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_0.3:	0.424542460996  0.64009981542  0.552602796879
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_0.3:	0.406387930651  0.576122485352  0.558496119945
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_0.9:	0.407905757061  0.542845903055  0.577287144681
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_0.9:	0.432062275223  0.555984203431  0.583498622123
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_1.5:	0.444215568665  0.526484981091  0.633726430906
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_1.5:	0.445783827556  0.531457936  0.601377009557
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_15.0:	0.519171258342  0.510434121152  0.853500264459
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_15.0:	0.479204368857  0.514092046408  0.723786714939
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_2.1:	0.463920813171  0.521407798608  0.65299684635
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_2.1:	0.443650231931  0.532400113289  0.619688675815
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_2.7:	0.471464744462  0.504937091653  0.685864867527
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_2.7:	0.450728813911  0.526369643006  0.600210627507
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_21.0:	0.523172711338  0.525093335984  0.831098594398
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_21.0:	0.480167296833  0.530723660173  0.768846606173
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_27.0:	0.525891597531  0.521915199309  0.81970917208
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_3.0:	0.474909440907  0.515774479029  0.705777456649
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_27.0:	0.479566176921  0.52129459345  0.766646444093
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_3.0:	0.45593065  0.531713844444  0.63063305421
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_30.0:	0.525775326416  0.522046400895  0.822331892297
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_30.0:	0.47912709909  0.507606728812  0.717443558013
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_15.0_9.0:	0.510512807901  0.504650580432  0.817587247469
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_0.3:	0.409096175511  0.629803295749  0.568621974303
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_3.0_9.0:	0.474087966278  0.517656333722  0.74915933832
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_0.9:	0.420683158958  0.620246437642  0.589188572879
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_0.3:	0.391926758414  0.550286868996  0.54130530899
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_1.5:	0.433344290295  0.554764727678  0.578139177463
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_0.9:	0.424736192202  0.556679868651  0.589977326337
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_15.0:	0.471270417767  0.526756814331  0.725346585377
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_1.5:	0.445551249106  0.528390016959  0.652313883395
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_2.1:	0.439763958385  0.542856884212  0.601937853848
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_15.0:	0.524645280205  0.521841402861  0.813959460495
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_2.1:	0.466353936445  0.493395754127  0.656212991147
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_2.7:	0.436527488852  0.540085046209  0.617165811022
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_21.0:	0.472864140866  0.531725624294  0.749758496012
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_2.7:	0.472535996056  0.506028969548  0.736954915794
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_27.0:	0.470993947223  0.523510478281  0.732710252393
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_21.0:	0.529976970246  0.526639593086  0.842815485577
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_3.0:	0.446828654623  0.559227555511  0.67126388325
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_27.0:	0.532366041142  0.529401083142  0.838721554455
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_30.0:	0.471656069762  0.529737248196  0.724817968318
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_3.0:	0.47298352608  0.503947356358  0.70251842203
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_30.0:	0.53290746615  0.53041730742  0.817836553425
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.1_9.0:	0.468451239664  0.52772710147  0.740315210921
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_30.0_9.0:	0.513159938325  0.511331353858  0.841041770809
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_0.3:	0.386372306341  0.608112152469  0.556772675378
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_0.3:	0.406810510236  0.541299377744  0.556251324066
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_0.9:	0.414731344524  0.578200517466  0.561343472456
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_1.5:	0.415773700177  0.543070634722  0.609775904395
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_0.9:	0.417265833126  0.555549970837  0.604721182244
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_15.0:	0.469832254819  0.496580432932  0.724856091273
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_1.5:	0.438473838735  0.510550541049  0.609417325274
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_2.7_2.1:	0.431404798544  0.528904254041  0.579339707093
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_15.0:	0.509980152932  0.516162560358  0.834150397224
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_2.1:	0.462844347236  0.511504701045  0.657410493145
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_2.7:	0.464322139562  0.519883178468  0.711735561108
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_21.0:	0.513935980981  0.518286444566  0.829202128746
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_27.0:	0.513702639521  0.507294077144  0.824092399717
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_3.0:	0.475065781722  0.522695633  0.72476777632
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_30.0:	0.515389325837  0.512253625128  0.843074275999
+./syntheticNetworkGeneration/netsForDtDmDb/_networks/params/weighted/aplha0.5/P0.3/P1_0.5/network_0.5_0.3_0.05_0.5_0.0_10_3.0_9.0_9.0:	0.503949808985  0.505719553175  0.832576379132

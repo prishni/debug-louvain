@@ -5,8 +5,11 @@ import math
 import json
 from sklearn.metrics import *
 from aux.__modularity import  __git_modularity
+
+#from mixmod_wt.modularity_LFR_our import getModularityQ as __modularity
+
 from mixmod_wt.mixmod_wt_correctingImplementation_without_half import __modularity
-from mixmod_wt.aux import  read_raw_network
+from mixmod_wt.aux import  read_raw_network,_get_com_wise_nodes
 from aux.Status import Status
 from aux.show_intermediate_steps import *
 from aux.__inducedGraph import __git_induced_graph
@@ -22,7 +25,6 @@ import matplotlib
 
 __PASS_MAX = -1
 __MIN = 0.0000001
-      
 
 def is_multi_layer(e1, e2, node_c):
     if e2 in node_c and e1 in node_c[e2]:
@@ -257,6 +259,7 @@ def getSeries(filename,weighted):
     ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = read_raw_network(filename,weighted)
     dendogram, mod = louvain(ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu)
     return mod, dendogram
+    print(dendogram)
     #print(fc)
 
 # i = int(sys.argv[1])
@@ -279,6 +282,27 @@ def getSeries(filename,weighted):
     #pathtosave ="./resultsOriginalModAlways/"
     #modfilename = pathtosave+"modComparisionOriginalLouvainAlways_newnets_oldmod_with_cionly"
 
+
+def compute_nmi(gtcom,dtcom):
+  num_nodes = 200
+  true_labels = [None]*num_nodes
+  pred_labels = [None]*num_nodes
+
+  linenum = 1
+  for commu in gtcom:
+    for c in list(gtcom[commu]):
+        true_labels[c-1] = linenum
+    linenum+=1
+  linenum=1
+  for d in dtcom:
+    for node in list(dtcom[d]):
+        pred_labels[node-1] = linenum
+    linenum+=1
+
+  #Normalised mutual information. Function present in sklearn.metrics. Do not forget to import.
+  nmi = normalized_mutual_info_score(true_labels, pred_labels) 
+  return nmi
+
 def runformanynetworks(args):
     output = []
 
@@ -297,10 +321,13 @@ def runformanynetworks(args):
         dtmod, dtcom = getSeries(str2,weighted)
         gtmod,gtcom = computegtmod(str2,weighted)
         output.append((gtmod, dtmod))
+
+        dtcom = _get_com_wise_nodes(partition_at_level(dtcom,len(dtcom)-1))
+        nmi = compute_nmi(gtcom,dtcom)
         #print(str2+ ", " + str(gtmod) + ", " + str(dtmod))
         #break
         modfile = open(modfilename, 'a')
-        modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(dtmod)+"\n")
+        modfile.write(str2+ ":    "+ str(gtmod)+"  "+str(dtmod)+"  "+str(nmi)+"\n")
         modfile.close()
 
 
@@ -327,7 +354,7 @@ def parallelimplementation(networklist,weighted,modfilename,networkpath):
     #Prepare args for parallel processings
     numnetworks = len(networklist)
 
-    cores=4
+    cores=1
     chunksize = numnetworks/cores
     splits = []
     for i in range(cores):
@@ -352,10 +379,13 @@ def parallelimplementation(networklist,weighted,modfilename,networkpath):
 
 def main():
     weighted=0
-    #pathtosave = "./syntheticNetworkGeneration/results/nets121_incWeights/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
-    pathtosave = "./syntheticNetworkGeneration/results/nets121/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
     #networkpath =  './syntheticNetworkGeneration/netsForDtDmDb/_networks/netsByGenerateNetsv3/alpha0.7/'
-    networkpath = './syntheticNetworkGeneration/netsForDtDmDb/_networks/morenets/alpha0.7/'
+    #networkpath = './syntheticNetworkGeneration/netsForDtDmDb/_networks/morenets/alpha0.7/'
+    networkpath="./syntheticNetworkGeneration/netsForcomparingBaseline/_networks/"
+
+    pathtosave="./syntheticNetworkGeneration/netsForcomparingBaseline/results/"
+    #pathtosave = "./syntheticNetworkGeneration/results/nets121_incWeights/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
+    #pathtosave = "./syntheticNetworkGeneration/results/nets121/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
 
     networklist = os.listdir(networkpath)
     modfilename = pathtosave+"all_louvain_for_corrImpl"
@@ -366,8 +396,10 @@ def main():
     i=1
     print(len(networklist))
     modfile = open(modfilename,'w')
-    modfile.write("network                                   GroundTruth    Detected-Louvain\n")
+    modfile.write("network                                   GroundTruth    Detected-Louvain NMI\n")
     modfile.close()
+    tmp = [weighted,modfilename,networkpath]
+    networklist.append(tmp)
     runformanynetworks(networklist)
     #parallelimplementation(networklist)
 

@@ -1,0 +1,227 @@
+\section{Dataset} \label{syn_gen_eval}
+\subsection{Synthetic Dataset Generation}\label{syn_gen}
+In this section, we propose a methodology to generate benchmark multilayer networks with ground truth communities.
+% The ground truth communities can be of two types (a) cross layer communities (containing multiple types of
+% nodes) (b) single layer communities (containing single type of nodes);
+The parameter $\alpha$ regulates the
+proportion of cross layer vs single layer communities in the benchmark. The network contains $M$ number of different layers where each
+layer $L_i$ contains $N_i$ nodes ($N_i = \left\vert V_i \right\vert$) with average degree $\langle k_i\rangle$.
+%The density of coupling links between the layers $L_i$ and $L_j$ is $d_{ij}$.
+The methodology contains the following three steps:
+
+\textbf{Step 1. Single layer communities:} First, we apply the LFR benchmark algorithm~\cite{lancichinetti2008benchmark}
+to generate communities at
+each layer $L_i$ with $N_i$ nodes where both degree and community size distributions follow power law distribution
+with exponents $\gamma_i$ and $\beta_i$ respectively. We fix the mixing
+parameter as $\mu_i$ to construct $\mathcal{C}_i$ single layer communities in layer $L_i$.
+
+\textbf{Step 2. Cross layer communities:} We combine the community $x_i\in \mathcal{C}_i$ of layer $L_i$ with
+community $x_j\in \mathcal{C}_j$ of layer $L_j$ to create the cross layer community $x_{ij}$. Assuming
+$\left\vert \mathcal{C}_i \right\vert$ and $\left\vert \mathcal{C}_j \right\vert$ as the number of communities in
+layers $L_i$ and $L_j$
+respectively, $\left\vert\mathcal{C}_c\right\vert=min\{\left\vert\mathcal{C}_i\right\vert, \left\vert\mathcal{C}_j\right\vert\}$ denotes
+the maximum possible number
+of cross layer communities. We construct $(|\mathcal{C}_c| \times \alpha)$ cross layer communities by
+randomly combining single-layer communities from both the layers $L_i$ \& $L_j$ respectively; notably each
+cross layer community $x_{ij}$ may contain one or multiple single layer communities.
+
+\textbf{Step 3. Coupling links:} Finally, we create the coupling links between the layers $L_i$ and $L_j$ with
+density $d_{ij}$. Fraction $p$ denotes the mixing parameter for the cross layer communities. We first
+distribute  $(N_i \times N_j \times d_{ij})$ coupling links randomly between the layers $L_i$ and $L_j$ where
+each link has one end in $L_i$ and another end in $L_j$. Next, we rewire the coupling links such
+that $p$ fraction of links stay inside the cross layer communities and the remaining $1-p$ fraction of
+links connect different cross layer communities.
+
+%[BM: Need to specify the typical parameters.]
+
+\iffalse
+
+suppose we have $|A|$ nodes in the top layer and $|B|$ nodes in the bottom layer,
+
+
+For creating coupling links between every two layers,
+ we utilise two parameters $d$ and $p$ where $d$ denotes the density of coupling links and $p$ denotes the fraction of such links
+ within the mixed
+ communities.
+
+///////////////////////////////////////////
+ \item Synthetic Dataset: Unlike single layer networks~\cite{lancichinetti2008benchmark}, there is no standard procedure to
+ generate synthetic multilayer networks with
+ ground truth communities. In ~\cite{Arenas}, the authors proposed such a method for multiplex networks. But it is non-trivial to extend
+ it for generic multilayer networks. Hence, we propose a novel technique to generate multilayer networks with ground truth
+ communities as described below.
+
+ \begin{enumerate}
+
+  \item \textit{Generating individual layers:} Suppose, we want to generate a network with $L$ layers. According to LFR
+  benchmark~\cite{lancichinetti2008benchmark}, we
+  generate $L$ subnetworks with ground truth communities. For generating each layer, we take standard LFR parameters such as
+  number of nodes, average degree, maximum degree and mixing parameter ($\mu$), as input. The output network has $L$ isolated layers with
+  each layer $A$ containing $n_A$ modules.
+
+  \item \textit{Creating multilayer communities:} Once we get individual layers with ground truth communities, we group those
+  communities across layers to create multilayer communities (containing nodes of different types).
+  For example, suppose we have a 2-layer network where the top layer $A$
+  has $n_A$ communities and bottom layer $B$ has $n_B$ communities. The maximum number of multilayer or mixed communities we can create
+  is $n_c = min\{n_A , n_B\}$. We take another parameter $\alpha$ to decide the fraction of $n_c$ possible multilayer communities
+  we actually create. Finally, we select $(n_C \times \alpha)$ communities from both $A$ and $B$ layers and randomly group
+  them pair-wise so that each mixed community contains one single-layer community from both subnetworks $A$ \& $B$.
+
+ \item \textit{Creating coupling links:} For creating coupling links between every two layers,
+ we utilise two parameters $d$ and $p$ where $d$ denotes the density of coupling links and $p$ denotes the fraction of such links
+ within the mixed
+ communities. For the above example, suppose we have $|A|$ nodes in the top layer and $|B|$ nodes in the bottom layer,
+ then we first assign
+ $(|A| \times |B| \times d)$ crosslayer links randomly where each link has one end in $A$ and another end in $B$.
+ After that, we rewire the links such that $p$ fraction of them stay inside the already created
+ multilayer communities and the remaining
+ $1-p$ fraction of them create cross multilayer-community links.
+
+\end{enumerate}
+
+ The parameter values chosen for generating networks for our experiments are mentioned in Sec.~\ref{eval}.
+%  For our experiments, we use 2-layer synthetic networks where each layer is generated with identical LFR parameters. For each layer,
+%  the total number of nodes is $100$, the average degree is $6$ and the maximum degree is $10$.
+%  %and $\mu \in [0.05,0.40,0.75]$ (same across all layers for a particular network).
+%  The other parameters i.e. $\mu$, $\alpha$, $d$ \& $p$ are varied from $0$ to $1$.
+%
+
+%  \textcolor{red}{[SP: Can we somehow generate crosslayer communities also with LFR? --- Raphael may check this part.
+%  We should also check the multiplex LFR baseline available in website whether we can use it (possibly this is generated using the
+%  method introduced in ~\cite{Arenas} ]).
+%  }
+
+ \item Real Dataset: Real multilayer datasets with ground truth communities are rarely available.
+ So, we show the utility of our algorithm on real networks with the help of a recommendation task.
+ First, we create a 2-layer network from an existing Yelp (a Location Based Social Network) academic dataset
+ which is made available as part of the Yelp dataset challenge
+ \footnote{\url{https://www.yelp.com/dataset\_challenge}}. Utilising that network, we obtain $K$ top recommended locations
+ for each user with the help of collaborative filtering[REF]. Finally, in Sec.~\ref{eval}, we evaluate to what extent
+ our detected communities can alleviate in such a recommendation task.
+
+ The details of the dataset and the method to create the 2-layer network along with recommended locations, are described below.
+
+ \begin{enumerate}
+  \item \textit{Dataset Description:} The available Yelp dataset contains detailed information regarding visitors (Yelp users),
+  business units (locations) and the tips (short business descriptions) \&
+  reviews (detailed business description) posted by the visitors. Each business unit is indexed by
+  a \textit{business ID}, and contains information about its category (restaurants, hotels, shopping etc.),
+  latitude-longitude, address etc. as attributes.
+  Similarly, each visitor is indexed by \textit{a user ID} and contains information regarding her city, social friendship connections etc.
+  The dataset contains information of total $61184$ business units (comprising about $700$ different categories)
+  located in $378$ cities and $366715$ visitors (with an average of $7$ social links) during the period $2005-2014$.
+%   Each tip \& review entry is properly (daywise) timestamped and indexed by an unique \textit{tip/review id} containing the
+%   corresponding visitor and business ID information.
+  Additionally, there are nearly 1.6 million reviews and 0.5 million tips in the dataset.
+
+  \item \textit{Creating 2-layer network:} We choose a particular city ``Las Vegas'' from the collection which contains
+  $13601$ businesses and $173697$ Visitors visiting those locations. To reduce the size of the network, we first detect
+  the maximally connected component in the friendship network of those $173697$ Visitors. This yields a set
+  of $244$ connected users. Furthermore, we consider only the $1627$ locations which are at least reviewed once by anyone of them.
+%   only the businesses
+%   within 5 KM radius from the center of the city. This reduces the number of businesses to $1069$. Furthermore, we consider
+%   only the $34563$ visitors who have written at least one review for one of those selected locations.
+  After shortlisting the set of users \& locations, we create the layers of the
+  network - the bottom layer consists of
+  visitors who are connected with each other via friendship links and the top layer contains businesses
+  where two businesses are connected
+  if and only if they are within ZZ meters of each other.
+  Finally, we add crosslayer (coupling) links between the nodes of this two layers with the help of
+  reviews i.e. we connect a visitor with a business if she has written at least one review for that business (see Fig.~\ref{yelp}).
+
+  \item \textit{Getting recommendations:} Collaborative filtering is a standard machine learning recommendation
+  technique[REF]. Given the collection of visitor-business links,
+  collaborative filtering (using business-business similarity) provides us with a set of $K$ top
+  recommended (for future visit) businesses for each visitor.
+%   Now, the visitors with more than a WW\% pair-wise similarity in their recommended set of
+%   businesses are assumed to be liking similar locations and put in the same community. Thus, we create communities comprising of
+%   similar minded visitors and the businesses they visited or prefer to visit.
+%  [DETAILS]
+ \end{enumerate}
+
+
+\end{enumerate}
+\fi
+
+
+\subsection{Synthetic Dataset Evaluation}\label{syn_evalu}
+In the following, we evaluate the performance of the synthetic network generation algorithm; we examine
+%In order to verify that the generated networks are constructed properly i.e.
+whether the generated networks behave consistently with our expectation. In order to accomplish the task,
+we adhere to the following approach -
+\textbf{(a)} we generate synthetic networks varying different model parameters $\mu$, $\alpha$ \& $p$, which intrinsically regulate the
+quality of the community structures present in the generated networks.
+\textbf{(b)} we apply state-of-the-art multilayer community detection algorithms~\cite{metafac, CompMod} on this synthetic networks
+and evaluate the quality of the detected communities with respect to the ground truth communities.
+\textbf{(c)} we conclude that the synthetic network possesses desired properties, only if the quality of the detected communities
+in step (b) is consistent with the quality of ground truth communities specified in step (a).
+% By doing so, we want to observe that parameters in usage have a real effect on the network structure and that they actually
+% behave as expected.
+% For instance, by tuning $\mu_i$ over its extreme ranges, it enables to control the fraction of internal and external edges of single layer communities in $L_i$.
+% Comparably, $p$ parameter is used to control coupling links within and outside multilayer communities.
+
+\subsubsection{Experimental Setup}
+% For the experiments, we fix the number of nodes $N_i$ in each layer $L_i$ at $100$ with maximum degree $k^{i}_{max}=10$ \& average
+% degree $\langle k_i\rangle=6$. The power-law exponents for degree distribution ($\gamma_i$) and community size distribution ($\beta_i$)
+% for each layer are fixed at 2 and 1 respectively and the coupling link density $d$ is fixed at $0.07$.
+% which has proved to be reliable [22].
+% Then we adopt the normalized mutual information (NMI), a relevant measure of similarity of partitions that
+% allows us to quantify the difference between a base partition, say $\La$, and another partition $P$ delivered by one of the algorithms.
+We implement the following state-of-the-art multilayer community detection algorithms to detect the communities in step (b).
+% In order to achieve this evaluation, we first implement the following two representative algorithms for community detection in
+% multilayer networks.
+
+(i) MetaFac~\cite{metafac}: This algorithm detects communities based on the tensor factorization and requires the number of
+  communities to be specified apriori\footnote{For our experiment, we vary the input number of communities from two to fifty and report
+  the one exhibiting highest overlap
+ with the ground truth.}. It detects communities in a way such that each of them contains at least one node from every 
+ layer (i.e. only cross layer communities). 
+%  Therefore,
+%  MetaFac algorithm
+%  intrinsically assumes that nodes of different types can be grouped into same number of communities.
+%   For our experiment, we vary the input number of communities from two to fifty and report the one exhibiting highest overlap
+%   with the ground truth.
+
+(ii) CompMod~\cite{CompMod}: This algorithm detects communities by maximizing \emph{composite modularity}, which is a
+  combination of the modularities of different subnetworks.
+
+We compute normalized mutual information (NMI)~\cite{danon2005comparing} index to compare the detected communities with the ground truth
+communities (step (b)). $NMI$ is a measure of similarity of communities, which attains a high value if the ground truth and detected
+communities
+exhibit good agreement.
+
+
+
+\subsubsection{Evaluation}
+Finally, we accomplish the step (c) by demonstrating that synthetic network possesses the desired properties, in the following way.
+
+\textbf{Varying $\mu$:} In Fig.~\ref{eval_01} and Fig.~\ref{eval_02}, we increase the mixing
+parameter $\mu$ (fraction of edges going out of single layer communities) which degrades the qualities of the communities.
+Clearly, as $\mu$ increases, NMI drops for both the state of the art algorithms, irrespective of $\alpha$ and $p$ values.
+This points to the fact that with increasing $\mu$, the ground truth communities degrade independent of the type of communities,
+which meets our expectation.
+% Regarding single layer communities, assessments are ommitted in the present paper but can be found in~\cite{lancichinetti2008benchmark}.
+% For datasets consisting of both single layer and multilayer communties, wide range of values for $\mu$ and $p$ have been
+% selected to explore
+% different graph structures.\bigvee
+% Accordingly, the community structure is regulated by $\alpha$,
+% single layer and multilayer communities together are obtained with $\alpha = 0.4$ and multilayer communities only with $\alpha = 1.0$.
+%Thus we can denote two types of synthetic datasets, $D_1$ and $D_2$ respectively.
+%Every curve show the variation of NMI either with $\mu$ or $p$.
+% \\Fig~\ref{eval_01} and Fig~\ref{eval_02} focus on the mixing parameter $\mu$, for both value of $\alpha$.
+% As the reader can notice, when $\mu$ increases NMI drops subsequently for any $p$ value.
+
+\textbf{Varying $p$:}
+Similarly, Fig.~\ref{eval_03} and Fig.~\ref{eval_04} focuses on $p$, which intuitively regulates the cohesiveness of
+the cross layer communities. Evidently, the obtained NMI rises with $p$ for both the community detection algorithms. The slope is
+observed to be relatively steeper for the higher $\alpha$, as it indicates the presence of
+more number of cross layer communities (magnifying the effect of $p$).
+% how $p$ parameter affects the network structures composed of multilayer communities.
+% In comparison $mu$ is still playing a key role, especially when $p$ is low
+% , that is to say when multilayer communities are less defined by coupling links but more by intra-layer edges.
+% Reasonably, $p$ parameter has little effect on decreasing the structure of single and multilayer communities (see~Fig\ref{eval_01}
+% and Fig\ref{eval_03}).
+% This is expected because most of communties are single layer ($60\%$) and thus coupling links are less significant.
+% This is also expected and reinforce our confidence on this synthetic dataset generation.
+
+%Hence, for both the parameters $\mu$ and $p$, the generated synthetic networks behave exactly the way they are expected to, confirming the robustness \& reliability of our proposed synthetic network generation mechanism. 

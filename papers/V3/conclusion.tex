@@ -1,0 +1,30 @@
+%\vspace{-0.05in}
+\section{Conclusion}
+\label{conclus}
+The major contribution of this paper is to develop $Q_M$, a novel modularity index for evaluating the quality of communities in 
+multilayer networks.
+It is experimentally shown that this index overcomes the limitations of the state of the art multilayer modularity
+definitions~\cite{CompMod,medical_paper} and behaves as per expectation in the various topological scenarios.
+% That is why unlike $mQ$ (modularity introduced in ~\cite{medical_paper}), it changes gracefully while varying coupling link
+% density of the multilayer network (see Fig.~\ref{single}).
+We have demonstrated the utility of $Q_M$ by developing multilayer community detection 
+algorithms \textbf{GN-$Q_M$} and \textbf{Louvain-$Q_M$}, substituting vanilla modularity by $Q_M$ in classical community detection 
+techniques. We have proved the convergence of both the proposed algorithms along with the complexity analysis.
+% This observation essentially enables us to re-use the rich literature available for single layer community detection algorithms and merge
+% $Q_M$ with any such standard algorithm.
+% In this work, we have chosen to show our results with Louvain~\cite{blondel2008fast} and Girvan-Newman~\cite{newman2004fast} community
+% detection algorithms.
+%Notably, our approach is free from any external parameters.
+% Our approach directly inherits the following advantages of the chosen algorithms
+% (a) it is free from external parameters (say, number of communities);
+% (b) it is fast and scalable to large-scale networks.
+In order to examine the modularity $Q_M$ and evaluate the proposed algorithms in a controlled environment, we have developed a 
+methodology to generate multilayer synthetic networks with pre-planted communities.
+Our algorithms perform observably better than state-of-the-art community detection techniques for wide
+spectrum of network parameters. Especially, unlike the competing algorithms, their performance remain almost invariant with
+respect to the fraction of cross layer vs single layer communities present in the network. Finally, communities discovered 
+by our algorithms exhibit practical applications for recommending locations in Yelp as well as recommending groups in Meetup, reflecting 
+the effectiveness of our approach on
+empirical dataset.
+%May mention a disadvantage that we cannot expand it for hyperedges because corresponding k-partite modularity does not exist.
+%\vspace{-0.05in} 

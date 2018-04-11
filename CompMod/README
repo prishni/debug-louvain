@@ -1,0 +1,28 @@
+The code is for Louvain-C algorithm, to detect communities in multiplex networks. It's written in pure Python 3 (python2 is not supported).
+
+Reference:
+Xin Liu, Weichu Liu, Tsuyoshi Murata, and Ken Wakita, "A framework for community detection in heterogeneous multi-relational networks", Advances in Complex Systems, vol.17, no.1450018, pp.1-21, World Scientific, 2014. DOI: 10.1142/S0219525914500180.
+
+--------------------------------------------------------------------------------
+For sub-network community finding it calls 3 binaries regarding to the type of network: 
+- For uni-partite network it uses `LPMp.exe` (From the paper "advanced modularity specialized label propagation algorithm for community detection in networks")
+- For [bi|tri]-partite network it uses `[Bi|Tri]NetFinder.exe` (Written by Dr. Xin Liu - "detecting communities in k-partite k-uniform hypernetworks")
+All these three .exe are included in this archive and should be able to run under Windows 7 environment. In order to send by gmail, I rename them into `*.e`, please rename them back.
+
+Unfortunately, when I looked back to the code I wrote, I found it's kinda messy. It should be runnable though. The main entry is `main.py`.
+A sample network are put in `sample_net` directory.
+
+Here's how to define a heterogeneous network:
+- in `sample_net/hetero.net`, each line is one edge. A tri-partite hyper-edge is defined as a line with 3 nodes.
+- in `sample_net/.meta` is the information of the heterogeneous network: `lr = [110, 150, 240, 250]` means "link range", that the heterogeneous network are composed of 4 different sub-networks, the 1 ~ 110 line is the first sub-network and so on so forth. `nr = [60, 60, 50]` means "node range", that the heterogeneous network has 60+60+50=170 nodes and 3 types of nodes. The 1st type of node is numbered 0 ~ 59, the 2nd type is numbered 60 ~ 119, so on so forth.
+
+We can run the algorithm by:
+```
+python3 main.py sample.net # Run the algorithm
+cat sample_net/merge.cmu # See the community division. Each line represent a community
+``` 
+
+Since I don't have time and chance to improve and comment the whole code. Neither can I help you much on figuring out how everything works.
+IMHO the algorithm itself should not be very hard to understand. So please take a look into it and please try to make it work.
+
+Good luck.

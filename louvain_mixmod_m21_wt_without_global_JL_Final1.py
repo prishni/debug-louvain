@@ -1,11 +1,10 @@
 import networkx as nx
 import random
 import pickle
-import math
+import math,os,sys
 from sklearn.metrics import *
 from mixmod_wt.Status import Status
-
-#from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
+from mixmod_wt.mixmod_wt_correctingImplementation_without_half import __modularity
 from collections import defaultdict
 import matplotlib.pyplot as plt
 from mixmod_wt.aux import _get_com_wise_nodes, printsomeinformation, read_raw_network
@@ -79,6 +78,7 @@ def __neighcom(node, graph, status) :
 #New __one_level function (from Raphael's code)
 def __one_level(original_graph, original_status, graph, status, status_list, level_count, verbose=0) :
 	#print("graph edges: ",graph.edges(data = True))
+	
 	modif = True
 	modif_global = False
 	nb_pass_done = 0
@@ -120,9 +120,9 @@ def __one_level(original_graph, original_status, graph, status, status_list, lev
 			status_list.append(status.node2com)
 			original_status.node2com = partition_at_level(status_list, level_count)
 
-# 			if verbose:
-# 				print "status: ",status
-# 				print "original status", original_status
+			# 			if verbose:
+			# 				print "status: ",status
+			# 				print "original status", original_status
 			
 			base_mod = __modularity(_get_commu_dict(partition_at_level(status_list, level_count)), original_status, original_graph)
 			
@@ -151,13 +151,13 @@ def __one_level(original_graph, original_status, graph, status, status_list, lev
 					best_increase = incr
 					best_com = com
 			
-			# 	if verbose:
-# 					print "----------------------------------------"
-# 					print node, com, base_mod, incr
-# 					print "status: ",status.node2com
-# 					print "status_list", len(status_list)
-# 					print "original status", original_status.node2com
-# 					print partition_at_level(status_list, level_count)
+							# 	if verbose:
+				# 					print "----------------------------------------"
+				# 					print node, com, base_mod, incr
+				# 					print "status: ",status.node2com
+				# 					print "status_list", len(status_list)
+				# 					print "original status", original_status.node2com
+				# 					print partition_at_level(status_list, level_count)
 
 				status_list.pop()
 					
@@ -204,7 +204,6 @@ def __one_level(original_graph, original_status, graph, status, status_list, lev
 	return modif_global		
 
 #__modularity(_get_commu_dict(status_list[-1]), status)
-
 
 def induced_graph_multilayer(partition, graph, status):
 	new_layer =defaultdict(set)
@@ -383,11 +382,11 @@ def louvain(graph, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu) 
 		
 	return status_list, mod
 
-def computegtmod(filename):
+def computegtmod(filename,weighted):
 	fnetwork = 0
 	#with open(filename+'_ml_network.pickle') as handle:
 	#	fnetwork = pickle.load(handle)
-	ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = read_raw_network(filename)
+	ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = read_raw_network(filename,weighted)
 	
 	status = Status()
 	status.layer=layer
@@ -402,110 +401,110 @@ def computegtmod(filename):
 	mod = __modularity(commu, status, ml_network)
 	return mod,commu
 
-def getSeries(filename):
+def getSeries(filename,weighted):
 	'''network_name = "networks_low_couple/" + filename.split('/')[-1]
 	
-	fp=open(network_name,'r')
-	line=fp.readline()
-	line=line.rstrip()
-	n_layer=int(line)
-	layer={}
-	node_l={}
-	l_ID=1
-	edge_l={}
-	edge_c={}
-	# f_el = open(filename+'_edges_list_commod'+str(g), 'w')
-	for i in range(0,n_layer):
+		fp=open(network_name,'r')
 		line=fp.readline()
 		line=line.rstrip()
-		line=line.split()
-		layer[l_ID]=set()
-		#print line
-		for n in line:
-			layer[l_ID].add(int(n))
-		line=fp.readline()
-		line=int(line.rstrip())
-		n_edge=line
-		#print n_edge
-		edge_l[l_ID]=n_edge
-		for j in range(0,n_edge):
+		n_layer=int(line)
+		layer={}
+		node_l={}
+		l_ID=1
+		edge_l={}
+		edge_c={}
+		# f_el = open(filename+'_edges_list_commod'+str(g), 'w')
+		for i in range(0,n_layer):
 			line=fp.readline()
 			line=line.rstrip()
 			line=line.split()
-			n1=int(line[0])
-			n2=int(line[1]) 
-			if n1 not in node_l:
-				node_l[n1]=set()
-			node_l[n1].add(n2)	  
-			if n2 not in node_l:
-				node_l[n2]=set()
-			node_l[n2].add(n1)
-			# f_el.write(str(n1-1)+' '+str(n2-1)+'\n')
+			layer[l_ID]=set()
+			#print line
+			for n in line:
+				layer[l_ID].add(int(n))
+			line=fp.readline()
+			line=int(line.rstrip())
+			n_edge=line
+			#print n_edge
+			edge_l[l_ID]=n_edge
+			for j in range(0,n_edge):
+				line=fp.readline()
+				line=line.rstrip()
+				line=line.split()
+				n1=int(line[0])
+				n2=int(line[1]) 
+				if n1 not in node_l:
+					node_l[n1]=set()
+				node_l[n1].add(n2)	  
+				if n2 not in node_l:
+					node_l[n2]=set()
+				node_l[n2].add(n1)
+				# f_el.write(str(n1-1)+' '+str(n2-1)+'\n')
 
-		l_ID+=1
-		
-	line=fp.readline()
-	line=line.rstrip()
-	n_couple=int(line)
-	#print n_couple
-	node_c={}	   
-	top={}
-	bot={}
-	c_ID=1
-	couple={}
-
-	for i in range(0,n_couple):
+			l_ID+=1
+			
 		line=fp.readline()
-		#print line
 		line=line.rstrip()
-		line=line.split()
-		top[c_ID]=int(line[0])
-		bot[c_ID]=int(line[1])
-		
-		couple[c_ID]=layer[top[c_ID]].union(layer[bot[c_ID]])
-		
+		n_couple=int(line)
+		#print n_couple
+		node_c={}	   
+		top={}
+		bot={}
+		c_ID=1
+		couple={}
+
+		for i in range(0,n_couple):
+			line=fp.readline()
+			#print line
+			line=line.rstrip()
+			line=line.split()
+			top[c_ID]=int(line[0])
+			bot[c_ID]=int(line[1])
+			
+			couple[c_ID]=layer[top[c_ID]].union(layer[bot[c_ID]])
+			
+			line=fp.readline()
+			line=int(line.rstrip())
+			n_edge=line
+			#print n_edge
+			edge_c[c_ID]=n_edge
+			count_edge = 0
+			for j in range(0,n_edge):
+				line=fp.readline()
+				line=line.rstrip()
+				line=line.split()
+				n1=int(line[0])
+				n2=int(line[1])
+				if n1 not in node_c:
+					node_c[n1]=set()
+				node_c[n1].add(n2)
+				if n2 not in node_c:
+					node_c[n2]=set()
+				node_c[n2].add(n1)  
+				count_edge += 1
+				# f_el.write(str(n1-1)+' '+str(n2-1)+'\n')
+			edge_c[c_ID] = count_edge
+			c_ID=c_ID+1
+
 		line=fp.readline()
-		line=int(line.rstrip())
-		n_edge=line
-		#print n_edge
-		edge_c[c_ID]=n_edge
-		count_edge = 0
-		for j in range(0,n_edge):
+		line=line.rstrip()
+		#print line
+		n_comm=int(line)
+		commu={}
+		com_ID=1
+		for i in range(0,n_comm):
 			line=fp.readline()
 			line=line.rstrip()
 			line=line.split()
-			n1=int(line[0])
-			n2=int(line[1])
-			if n1 not in node_c:
-				node_c[n1]=set()
-			node_c[n1].add(n2)
-			if n2 not in node_c:
-				node_c[n2]=set()
-			node_c[n2].add(n1)  
-			count_edge += 1
-			# f_el.write(str(n1-1)+' '+str(n2-1)+'\n')
-		edge_c[c_ID] = count_edge
-		c_ID=c_ID+1
-
-	line=fp.readline()
-	line=line.rstrip()
-	#print line
-	n_comm=int(line)
-	commu={}
-	com_ID=1
-	for i in range(0,n_comm):
-		line=fp.readline()
-		line=line.rstrip()
-		line=line.split()
-		commu[com_ID]=set()
-		for n in line:
-			commu[com_ID].add(int(n))
-		com_ID+=1	   
-	mu=0'''
-	
-	#with open(filename+'_ml_network.pickle') as handle:
-	#	fnetwork = pickle.load(handle)
-	ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = read_raw_network(filename)
+			commu[com_ID]=set()
+			for n in line:
+				commu[com_ID].add(int(n))
+			com_ID+=1	   
+		mu=0'''
+		
+		#with open(filename+'_ml_network.pickle') as handle:
+		#	fnetwork = pickle.load(handle)
+	ml_network, layer, node_l, node_c, top, bot, couple, edge_l, edge_c, mu, commu = read_raw_network(filename,weighted)
     
 	#ml_network =build_network(layer, node_l, node_c, top, bot, couple, edge_l, edge_c)
 	#with open(filename+'_ml_network.pickle', 'w') as handle:
@@ -558,48 +557,74 @@ def generate_nmi_file(commu,louvain1):
 	nmival = normalized_mutual_info_score(true_labels, predicted_labels)
 	return nmival
 
-	
-import os
-import sys
-import pickle
+#commented code
+	'''networklist = os.listdir('./Raphael_27.6.17/synthetics')
+	pathtowritecommu = "./resultsmixmod/detected_communities/"
+	pathtosave = './resultsmixmod/modularity_comparisions/'
+	modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_doinganything_nmi"
+	nmifilename=modfilename+"_nmi"'''
 
-'''networklist = os.listdir('./Raphael_27.6.17/synthetics')
-pathtowritecommu = "./resultsmixmod/detected_communities/"
-pathtosave = './resultsmixmod/modularity_comparisions/'
-modfilename = pathtosave+"modComparisionMixModLouvain_wt_correctedImplementation_doinganything_nmi"
-nmifilename=modfilename+"_nmi"'''
+	#Comment following four lines if you want to run for all networks
+	#str2 = "./Networks/config1.txt"
+	# str2="./synthetics/network_0.6_0.5_0.05_1.0_0.0"
+	# str2 = "./nets/smallnetwork"
+	#modu, commus = getSeries(str2)
+	#x=_get_com_wise_nodes(partition_at_level(commus, len(commus)-1))
+	#print "Modularity Louvain: ", modu
+	#for xs in x:
+	#	print xs,sorted(x[xs])
 
-#Comment following four lines if you want to run for all networks
-#str2 = "./Networks/config1.txt"
-# str2="./synthetics/network_0.6_0.5_0.05_1.0_0.0"
-# str2 = "./nets/smallnetwork"
-#modu, commus = getSeries(str2)
-#x=_get_com_wise_nodes(partition_at_level(commus, len(commus)-1))
-#print "Modularity Louvain: ", modu
-#for xs in x:
-#	print xs,sorted(x[xs])
+	# gtres = computegtmod(str2)
+	# print "Modularity GT: ", gtres[0]
+	# for xs in gtres[1]:
+	#  	print xs,sorted(gtres[1][xs])
 
-# gtres = computegtmod(str2)
-# print "Modularity GT: ", gtres[0]
-# for xs in gtres[1]:
-#  	print xs,sorted(gtres[1][xs])
+	# sys.exit()
 
-# sys.exit()
+def compute_nmi(gtcom,dtcom):
+  num_nodes = 200
+  true_labels = [None]*num_nodes
+  pred_labels = [None]*num_nodes
+
+  linenum = 1
+  for commu in gtcom:
+    for c in list(gtcom[commu]):
+        true_labels[c-1] = linenum
+    linenum+=1
+  linenum=1
+  for d in dtcom:
+    for node in list(dtcom[d]):
+        pred_labels[node-1] = linenum
+    linenum+=1
+
+  #Normalised mutual information. Function present in sklearn.metrics. Do not forget to import.
+  nmi = normalized_mutual_info_score(true_labels, pred_labels) 
+  return nmi
 
 
-def runformanynetworks(networklist):
+def runformanynetworks(args):
 	output = []
+	
+	networklist  = args[:-1]
+	tmp = args[-1]
+	weighted = args[-1][0]
+	modfilename = args[-1][1]
+	networkpath = args[-1][2]
 	for network in networklist:
 		#str2 = "./nets/" + str(network)
 		str2 = networkpath + str(network)
 		print "START For Network ",str2
-		dtmod, dtcom = getSeries(str2)
-		gtmod,gtcom = computegtmod(str2)
+		dtmod, dtcom = getSeries(str2,weighted)
+		gtmod,gtcom = computegtmod(str2,weighted)
 		output.append((gtmod, dtmod))
+		
+		dtcom  = _get_com_wise_nodes(partition_at_level(dtcom,len(dtcom)-1))
+
+		nmi = compute_nmi(gtcom,dtcom)
 		#print(str2+ ", " + str(gtmod) + ", " + str(dtmod))
 		#break
 		modfile = open(modfilename, 'a')
-		modfile.write(str2+ ":	"+ str(gtmod)+"  "+str(dtmod)+"\n")
+		modfile.write(str2+ ":	"+ str(gtmod)+"  "+str(dtmod)+"  "+str(nmi)+"\n")
 		modfile.close()
 
 		'''
@@ -613,8 +638,7 @@ def runformanynetworks(networklist):
 		#write_commus_infile(network,detected_commu,gtcom)
 	return output
 
-
-def parallelimplementation(networklist):
+def parallelimplementation(networklist,weighted,modfilename,networkpath):
 	#Open file to compare modularity values
 	modfile = open(modfilename,'w')
 	modfile.write("network								   GroundTruth	Detected-Louvain\n")
@@ -637,42 +661,96 @@ def parallelimplementation(networklist):
 
 	args = []
 	for i in range(cores):
-		args.append(networklist[splits[i]:splits[i+1]])
+		arguments = networklist[splits[i]:splits[i+1]]
+		tmp = [weighted,modfilename,networkpath]
+		arguments.append(tmp)
+		args.append(arguments)
+		
 
 	p = Pool(cores)
 	modularities = p.map(runformanynetworks, args)
 
 	#Flatten list of lists returned by different cores
 	modularities = [item for items in modularities for item in items]
-
+	#print "lala"
 	print modularities
 	return modularities
 
-networktypes = [70, 28]
-algonames = ["round1(without_half)", "round2(correctingImplementation)"]
+def main():
+	weighted=0
+	
+	networkpath="./syntheticNetworkGeneration/netsForcomparingBaseline/_networks/"
+	#networkpath="./syntheticNetworkGeneration/netsForDtDmDb/_networks/morenets/alpha0.7/"
+	#networkpath="./syntheticNetworkGeneration/netsForDtDmDb/_networks/netsByGenerateNetsv3/alpha0.7/"
 
-for networktype in networktypes:
-	for algoname in algonames:
+	pathtosave="./syntheticNetworkGeneration/netsForcomparingBaseline/results/"
+	#pathtosave="./syntheticNetworkGeneration/results/nets121/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
+	#pathtosave="./syntheticNetworkGeneration/results/nets121_incWeights/alpha0.7/dt_db_mod_files_corrctImp_without_half/"
 
-		if(algoname == "round1(without_half)"):
-			from mixmod_wt.mixmod_wt_correctingImplementation_without_half import __modularity	
-		elif(algoname == "round2(correctingImplementation)"):
-			from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
+	networklist = os.listdir(networkpath)
+	networklist=sorted(networklist)
+	modfilename = pathtosave+"mixmod_for_corrImpl_final1"
+	#tmp = [weighted,modfilename,networkpath]
+	#networklist.append(tmp)
+	#runformanynetworks(networklist)
+	parallelimplementation(networklist,weighted,modfilename,networkpath)
+	sys.exit()
 
-		if(networktype == 70):
-			networkpath = './Raphael_27.6.17/synthetics/'
-		elif(networktype == 28):
-		    networkpath = './Raphael_27.6.17/net_networks/'
 
-		modfilename="./results/"+algoname+"/final1/"+str(networktype)+"/Mixmod_global_modu_not_global_low_couple_Final1.txt"
-		#nmifilename="Mixmod_global_nmi.txt"
-		#networklist = os.listdir('./synthetics')
-		networklist = os.listdir(networkpath)
-		networklist=sorted(networklist)
-		#runformanynetworks(networklist)
-		parallelimplementation(networklist)
+#more code
+	networktypes = [70, 28]
+	algonames = ["round1(without_half)", "round2(correctingImplementation)"]
 
-sys.exit()
+	for networktype in networktypes:
+		for algoname in algonames:
+
+			if(algoname == "round1(without_half)"):
+				from mixmod_wt.mixmod_wt_correctingImplementation_without_half import __modularity	
+			elif(algoname == "round2(correctingImplementation)"):
+				from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
+			
+			if(networktype == 70):
+				networkpath = './Raphael_27.6.17/synthetics/'
+			elif(networktype == 28):
+			    networkpath = './Raphael_27.6.17/net_networks/'
+
+
+			modfilename="./results/"+algoname+"/final0/"+str(networktype)+"/Mixmod_global_modu_not_global_low_couple_Final0.txt"
+			print("Output destination: ",modfilename)
+			#nmifilename="Mixmod_global_nmi.txt"
+			#networklist = os.listdir('./synthetics')
+			networklist = os.listdir(networkpath)
+			networklist=sorted(networklist)
+			#runformanynetworks(networklist)
+			parallelimplementation(networklist)
+
+	sys.exit()
+########
+	networktypes = [70, 28]
+	algonames = ["round1(without_half)", "round2(correctingImplementation)"]
+
+	for networktype in networktypes:
+		for algoname in algonames:
+
+			if(algoname == "round1(without_half)"):
+				from mixmod_wt.mixmod_wt_correctingImplementation_without_half import __modularity	
+			elif(algoname == "round2(correctingImplementation)"):
+				from mixmod_wt.mixmod_wt_correctingImplementation import __modularity
+
+			if(networktype == 70):
+				networkpath = './Raphael_27.6.17/synthetics/'
+			elif(networktype == 28):
+			    networkpath = './Raphael_27.6.17/net_networks/'
+
+			modfilename="./results/"+algoname+"/final1/"+str(networktype)+"/Mixmod_global_modu_not_global_low_couple_Final1.txt"
+			#nmifilename="Mixmod_global_nmi.txt"
+			#networklist = os.listdir('./synthetics')
+			networklist = os.listdir(networkpath)
+			networklist=sorted(networklist)
+			#runformanynetworks(networklist)
+			parallelimplementation(networklist)
+
+	sys.exit()
 
 
 # i = int(sys.argv[1])
@@ -701,3 +779,7 @@ with open(str2+'_modu_benching_all_march21_louvain_mixmod.pickle', 'wb') as hand
 with open(str2+'_commu_benching_frac_march21_louvain_mixmod.pickle', 'wb') as handle:
 	pickle.dump(commus, handle)
 #print ""'''
+
+
+if __name__ == '__main__':
+	main()
